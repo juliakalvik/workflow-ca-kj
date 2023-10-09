@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { signUp } from "../../lib/my-api";
+import { signUp } from "../../lib/api.js";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 
@@ -59,25 +59,25 @@ const SignUpForm = ({ setShowLogin, setActiveForm }) => {
 
 
     return (
-        <div className="w-full bg-orange-200 rounded-3xl border-2 border-orange-100 mt-1 md:mt-2 sm:max-w-md xl:p-1 dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full mt-1 bg-orange-200 border-2 border-orange-100 rounded-3xl md:mt-2 sm:max-w-md xl:p-1 dark:bg-gray-800 dark:border-gray-700">
             <div className='p-6 space-y-4 sm:space-y-5 md:space-y-7 sm:p-8'>
-                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Create an Account</h2>
+                <h2 className="text-xl font-bold sm:text-2xl md:text-3xl lg:text-4xl">Create an Account</h2>
                 {errorMessage && <div className="text-red-600">{errorMessage}</div>}
                 <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="/profile">
                     <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required={true} autoComplete="email" />
                     <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required={true} minLength={4} autoComplete="new-password" />
                     <Input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required={true} minLength={4} autoComplete="new-password" />
-                    <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-3xl w-full my-2 border-2 border-blue-500 hover:border-blue-400 shadow-custom leading-tight tracking-tight" onClick={handleSubmit} disabled={!email || !password || !confirmPassword}>
+                    <button type="submit" className="w-full px-4 py-2 my-2 leading-tight tracking-tight text-white bg-blue-500 border-2 border-blue-500 rounded-3xl hover:border-blue-400 shadow-custom" onClick={handleSubmit} disabled={!email || !password || !confirmPassword}>
                         Sign Up
                     </button>
-                    <p className="text-xs sm:text-sm font-light text-gray-700 dark:text-gray-400 leading-tight tracking-tight">
+                    <p className="text-xs font-light leading-tight tracking-tight text-gray-700 sm:text-sm dark:text-gray-400">
                         Already have an account? <a href="#" onClick={() => { setShowLogin(true); setActiveForm('login'); }} className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign In</a>
                     </p>
                 </form>
             </div>
             {showModal && (
-                <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                    <div className="modal-content w-auto bg-blue-500 text-white px rounded-3xl border-2 border-blue-400 mt-1 md:mt-2 sm:max-w-md xl:p-3 p-4">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="w-auto p-4 mt-1 text-white bg-blue-500 border-2 border-blue-400 modal-content px rounded-3xl md:mt-2 sm:max-w-md xl:p-3">
                         <h2 className="text-2xl font-bold leading-tight tracking-tight">Thank You!</h2>
                         <p className="mt-2 text-base leading-tight tracking-tight">Welcome and thank you for signing up!</p>
                     </div>
