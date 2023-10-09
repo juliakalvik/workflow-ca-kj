@@ -1,8 +1,8 @@
 import React from "react";
-import UserIcon from "../../assets/basic-user.svg";
-import MediaIcon from "../../assets/icons/media.svg";
-import GifIcon from "../../assets/icons/gif.svg";
-import EmojiIcon from "../../assets/icons/emoji.svg";
+import UserIcon from "../../../assets/basic-user.svg";
+import MediaIcon from "../../../assets/icons/media.svg";
+import GifIcon from "../../../assets/icons/gif.svg";
+import EmojiIcon from "../../../assets/icons/emoji.svg";
 
 function PostSubmission() {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
-import logo from "../../assets/Y_logo.png";
-import user from "../../assets/basic-user.svg";
+import logo from "../../../assets/Y_logo.png";
+import user from "../../../assets/basic-user.svg";
 
 function Header() {
   return (

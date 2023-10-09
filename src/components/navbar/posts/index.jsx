@@ -1,5 +1,5 @@
 import React from "react";
-import UserIcon from "../../assets/icons/user.svg";
+import UserIcon from "../../../assets/icons/user.svg";
 
 function OtherPosts() {
   return (

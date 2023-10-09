@@ -61,31 +61,29 @@ export default function HomePage() {
 
   return (
     <>
-      return (
-    <div className="container mt-2 mx-2 w-full">
-      {/* Header*/}
-      <Header />
+      <div className="container mt-2 mx-2 w-full">
+        {/* Header*/}
+        <Header />
 
-      {/* Main Content */}
-      <div className="flex">
-        {/* Left Side */}
-        <div className="min-w-80 sm:w-2/12 md:w-3/12">
-          <NavBar />
-        </div>
+        {/* Main Content */}
+        <div className="flex">
+          {/* Left Side */}
+          <div className="min-w-80 sm:w-2/12 md:w-3/12">
+            <NavBar />
+          </div>
 
-        {/* Middle */}
-        <div className="w-10/12 sm:w-10/12 md:w-7/12 mx-1">
-          <PostSubmission />
-          <OtherPosts />
-        </div>
+          {/* Middle */}
+          <div className="w-10/12 sm:w-10/12 md:w-7/12 mx-1">
+            <PostSubmission />
+            <OtherPosts />
+          </div>
 
-        {/* Right Side */}
-        <div className="w-0 sm:w-0 md:w-2/12">
-          <TrendingSection />
+          {/* Right Side */}
+          <div className="w-0 sm:w-0 md:w-2/12">
+            <TrendingSection />
+          </div>
         </div>
       </div>
-    </div>
-
       <section>
         {posts.map((post) => (
           <div key={post.id}>{post?.title}</div>
@@ -94,3 +92,4 @@ export default function HomePage() {
     </>
   );
 }
+

@@ -1,11 +1,11 @@
 import React from "react";
 import { Outlet, Link } from "@tanstack/react-router";
-import HomeIcon from "../../assets/icons/home.svg";
-import UserIcon from "../../assets/icons/user.svg";
-import MailIcon from "../../assets/icons/mail.svg";
-import BookmarkIcon from "../../assets/icons/bookmark.svg";
-import CommunityIcon from "../../assets/icons/community.svg";
-import CogIcon from "../../assets/icons/cog.svg";
+import HomeIcon from "../../../assets/icons/home.svg";
+import UserIcon from "../../../assets/icons/user.svg";
+import MailIcon from "../../../assets/icons/mail.svg";
+import BookmarkIcon from "../../../assets/icons/bookmark.svg";
+import CommunityIcon from "../../../assets/icons/community.svg";
+import CogIcon from "../../../assets/icons/cog.svg";
 
 function NavBar() {
   return (
