@@ -55,10 +55,6 @@ export default function HomePage() {
     fetchPosts();
   }, []);
 
-  if (isLoading) return <h1>Loading...</h1>;
-
-  if (error) return <h1>Something went wrong! {error?.message}</h1>;
-
   return (
     <>
       <div className="container mt-2 mx-2 w-full">
