@@ -1,5 +1,9 @@
+import { login } from "../../lib/api.js";
 import { useState, useEffect } from 'react';
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import logo from "../../assets/Y_logo.png";
+import SignUpForm from "../../components/sign-up_form/index.jsx";
 import google from "../../assets/icons/google-logo-48.svg";
 import apple from "../../assets/icons/apple-logo-48.svg";
 
@@ -134,6 +138,6 @@ function LoginForm() {
             )}
         </div >
     )
-};
+}
 
 export default LoginForm;
