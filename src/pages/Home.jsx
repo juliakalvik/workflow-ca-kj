@@ -3,7 +3,7 @@ import { API_URL } from "../lib/constants";
 import Header from "../components/navbar/header";
 import NavBar from "../components/navbar/home-nav";
 import PostSubmission from "../components/navbar/users-post";
-import OtherPosts from "../components/navbar/posts";
+import PostPage from "../components/navbar/posts";
 import TrendingSection from "../components/navbar/trending";
 
 export default function HomePage() {
@@ -24,7 +24,7 @@ export default function HomePage() {
           {/* Middle */}
           <div className="w-10/12 sm:w-10/12 md:w-7/12 mx-1">
             <PostSubmission />
-            <OtherPosts />
+            <PostPage />
           </div>
 
           {/* Right Side */}

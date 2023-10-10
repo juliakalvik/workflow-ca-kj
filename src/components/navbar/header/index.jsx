@@ -20,25 +20,12 @@ function Header() {
       </div>
 
       {/* Right side - User Stories */}
-      <div className="flex space-x-2">
+      <div className="flex items-center space-x-2">
+        <p className="text-center">Username</p>
         <div className="w-14 h-14 rounded-full border-2 bg-orange-200">
           <img
             src={user}
-            alt="Blue Circle"
-            className="w-full h-full object-cover rounded-full"
-          />
-        </div>
-        <div className="w-14 h-14 rounded-full border-2 bg-orange-200">
-          <img
-            src={user}
-            alt="Green Circle"
-            className="w-full h-full object-cover rounded-full"
-          />
-        </div>
-        <div className="w-14 h-14 rounded-full border-2 bg-orange-200">
-          <img
-            src={user}
-            alt="Red Circle"
+            alt="User Avatar"
             className="w-full h-full object-cover rounded-full"
           />
         </div>
