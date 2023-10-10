@@ -118,8 +118,8 @@ export default function LoginPage() {
                         name="email"
                         type="email"
                         required
+                        placeholder="Email"
                         autoComplete="email"
-                        /* placeholder="Email" */
                         /* value={email}
                         onChange={(e) => setEmail(e.target.value)} required={true} */
                         defaultValue="first.last@stud.noroff.no"
@@ -159,8 +159,13 @@ export default function LoginPage() {
                     >
                       {isLoading ? "signing in" : "Login"}
                     </button>
-                    <p className="text-xs font-light text-gray-700 sm:text-sm dark:text-gray-400">
-                      Don’t have an account yet? <a href="#" onClick={() => setShowLogin(false)} className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
+                    <p className="text-xs font-light text-gray-700 sm:text-sm dark:text-gray-400">Not a member?{" "}
+                      <a
+                        href="/register"
+                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                      >
+                        Sign up now
+                      </a>
                     </p>
                   </div>
                 </form>
@@ -169,16 +174,6 @@ export default function LoginPage() {
           </section >
         )
         }
-
-        <p className="mt-10 text-sm text-center text-gray-500">
-          Not a member?{" "}
-          <a
-            href="/register"
-            className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >
-            Sign up now
-          </a>
-        </p>
       </div >
     </div >
   );
