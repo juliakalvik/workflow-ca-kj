@@ -12,7 +12,7 @@ function OtherPosts() {
         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
     },
   };
-  
+
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -102,33 +102,6 @@ function OtherPosts() {
                 Comment
               </button>
             </div>
-
-        {/* User Section */}
-        <div className="w-full flex flex-wrap items-start justify-between">
-          <div className="flex items-center flex-wrap">
-            {/* User Icon */}
-            <img
-              src={UserIcon}
-              alt="User Icon"
-              className="w-10 h-10 rounded-full dark:invert"
-            />
-            {/* User Name */}
-            <p className="ml-2 text-black dark:text-white text-sm hidden xxs:inline-block">
-              John Doe
-            </p>
-            {/* Username */}
-            <p className="text-gray-600 dark:text-white text-sm ml-2">
-              @JohnDoe
-            </p>
-          </div>
-          {/* Like and Comment Buttons */}
-          <div className="w-full flex items-center justify-end flex-wrap">
-            <button className="text-sm text-gray-600 dark:text-white border-gray-300 dark:bg-gray-700 dark:border-gray-600 hover:text-blue-500 mr-4">
-              Like
-            </button>
-            <button className="text-sm text-gray-600 dark:text-white border-gray-300 dark:bg-gray-700 dark:border-gray-600 hover:text-blue-500">
-              Comment
-            </button>
           </div>
         ))
       )}

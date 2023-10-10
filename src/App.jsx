@@ -13,7 +13,7 @@ function App() {
       <main>
         <Outlet />
       </main>
-      <Home />
+
       <footer>
         <small>Created with ❤️ by You</small>
       </footer>
