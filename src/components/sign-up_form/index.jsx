@@ -71,7 +71,7 @@ const SignUpForm = ({ setShowLogin, setActiveForm }) => {
                         Sign Up
                     </button>
                     <p className="text-xs font-light leading-tight tracking-tight text-gray-700 sm:text-sm dark:text-gray-400">
-                        Already have an account? <a href="#" onClick={() => { setShowLogin(true); setActiveForm('login'); }} className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign In</a>
+                        Already have an account? <a href="/login" onClick={() => { setShowLogin(true); setActiveForm('login'); }} className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign In</a>
                     </p>
                 </form>
             </div>
