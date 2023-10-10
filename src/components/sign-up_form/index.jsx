@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { signUp } from "../../lib/api.js";
+/* import { signUp } from "../../lib/api.js"; */
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 
