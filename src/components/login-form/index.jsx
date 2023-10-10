@@ -23,13 +23,13 @@ const Input = ({ type, placeholder, value, onChange, required, minLength }) => (
         aria-label={placeholder}
     />
 );
+
 const CustomButton = ({ label, onClick, icon }) => (
     <button onClick={onClick} className="bg-neutral-100 text-gray-900 leading-tight tracking-tight px-4 py-2 rounded-3xl w-full my-2 border-2 border-[#F5F5F5] hover:border-white dark:hover:bg-gray-100 dark:bg-gray-200 dark:border-gray-200 shadow-custom">
         {icon && <img src={icon} alt={label} className="inline-block mr-2 w-7 h-7" />}
         {label}
     </button>
 );
-
 
 /** *Loading, Error, and Success Messages 
  * @author Cnbergh
