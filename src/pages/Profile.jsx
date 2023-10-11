@@ -2,6 +2,7 @@ import Header from "../components/navbar/header";
 import NavBar from "../components/navbar/home-nav";
 import TrendingSection from "../components/navbar/trending";
 import ProfilePage from "../components/profile-page";
+import SingelPost from "../components/create-post"
 
 export default function Profile() {
   return (
@@ -20,6 +21,7 @@ export default function Profile() {
           {/* Middle */}
           <div className="w-10/12 sm:w-10/12 md:w-7/12 mx-1">
             <ProfilePage />
+            <SingelPost />
           </div>
 
           {/* Right Side */}
