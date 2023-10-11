@@ -102,7 +102,7 @@ export default function CreatePostForm() {
           <input
             id="userId"
             name="userId"
-            className="w-full h-auto resize-none overflow-hidden text-sm border border-gray-300  dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 p-2 mb-4 rounded-3xl"
+            className="w-full h-20 resize-none overflow-hidden text-sm border border-gray-300  dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 p-2 mb-4 rounded-3xl"
           />
         </div>
       </div>
