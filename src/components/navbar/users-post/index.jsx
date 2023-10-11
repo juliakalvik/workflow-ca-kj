@@ -1,8 +1,10 @@
-
 // import UserIcon from "../../../assets/basic-user.svg";
 // import MediaIcon from "../../../assets/icons/media.svg";
 // import GifIcon from "../../../assets/icons/gif.svg";
 // import EmojiIcon from "../../../assets/icons/emoji.svg";
+/** *Reusable Input and Button Components
+
+ * @author PetterMartin*/
 
 export default function CreatePostForm() {
   async function handleOnSubmit(event) {
@@ -26,17 +28,17 @@ export default function CreatePostForm() {
 
     try {
       const response = await fetch(
-        "https://api.noroff.dev/api/v1/social/posts", 
+        "https://api.noroff.dev/api/v1/social/posts?limit=1",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json; charset=UTF-8",
-            ...accessKey.headers, 
+            ...accessKey.headers,
           },
           body: JSON.stringify(newPost),
         }
       );
-  
+
       if (response.ok) {
         console.log("Post successful!");
       } else {
@@ -53,7 +55,7 @@ export default function CreatePostForm() {
 
   return (
     <form
-      className="p-4 py-6 mt-8 space-y-6 rounded shadow bg-zinc-900"
+      className=" bg-neutral-100 text-gray-900 w-full text-xl p-4 mb-1 rounded-3xl border-2 border-white dark:bg-gray-800 dark:border-gray-700"
       onSubmit={handleOnSubmit}
     >
       <h3>Create a new post</h3>
@@ -64,7 +66,7 @@ export default function CreatePostForm() {
             htmlFor="title"
             className="block text-sm font-medium leading-6 text-white"
           >
-            title
+            Subject
           </label>
 
           <input
@@ -82,7 +84,7 @@ export default function CreatePostForm() {
             htmlFor="userId"
             className="block text-sm font-medium leading-6 text-white"
           >
-            User Id
+            What´s on your mind?
           </label>
           <input
             id="userId"
@@ -95,9 +97,9 @@ export default function CreatePostForm() {
       <div>
         <button
           type="submit"
-          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="bg-orange-200 dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 text-gray-900 px-12 py-2 rounded-3xl ms-1 border-2 border-orange-200 hover:border-orange-100 shadow-custom leading-tight tracking-tight"
         >
-          Create Post
+          Post
         </button>
       </div>
     </form>
