@@ -39,7 +39,7 @@ function OtherPosts() {
 
     const timer = setInterval(() => {
       fetchData();
-    }, 5000); // Fetch every 5 seconds
+    }, 10000); // Fetch every 10 seconds
 
     return () => clearInterval(timer); // Cleanup
   }, []);
