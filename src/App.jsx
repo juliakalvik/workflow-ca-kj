@@ -1,6 +1,7 @@
 import { Outlet } from "@tanstack/react-router";
 import Navbar from "./components/navbar";
 import "./App.css";
+import Home from "./pages/Home";
 
 function App() {
   return (
