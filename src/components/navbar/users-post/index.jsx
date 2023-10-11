@@ -1,4 +1,3 @@
-// import UserIcon from "../../../assets/basic-user.svg";
 // import MediaIcon from "../../../assets/icons/media.svg";
 // import GifIcon from "../../../assets/icons/gif.svg";
 // import EmojiIcon from "../../../assets/icons/emoji.svg";
@@ -9,19 +8,17 @@
 let lastRequestTime = 0;
 
 export default function CreatePostForm() {
-  const [buttonDisabled, setButtonDisabled] = useState(false);
-
   async function handleOnSubmit(event) {
     const currentTime = Date.now();
 
-    if (currentTime - lastRequestTime < 1000) {
-      console.log('Wait 1 second between requests.');
+    if (currentTime - lastRequestTime < 10000) {
+      console.log("Wait 10 seconds between requests.");
       return;
     }
+
     lastRequestTime = currentTime;
 
     event.preventDefault();
-    setButtonDisabled(true);
 
     const form = event.target;
     const { title, userId } = form.elements;
@@ -77,7 +74,7 @@ export default function CreatePostForm() {
         <div className="flex flex-col gap-1 mt-2">
           <label
             htmlFor="title"
-            className="block text-sm leading-6 text-black"
+            className="block text-sm font-medium leading-6 text-white"
           >
             Subject
           </label>
@@ -87,7 +84,7 @@ export default function CreatePostForm() {
             id="title"
             name="title"
             required
-            className="w-full h-auto resize-none overflow-hidden text-sm border border-gray-300  dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 p-2 rounded-3xl"
+            className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           />
 
         </div>
@@ -97,14 +94,14 @@ export default function CreatePostForm() {
         <div className="flex flex-col gap-1 mt-2">
           <label
             htmlFor="userId"
-            className="block text-sm leading-6 text-black"
+            className="block text-sm font-medium leading-6 text-white"
           >
             What´s on your mind?
           </label>
           <input
             id="userId"
             name="userId"
-            className="w-full h-20 resize-none overflow-hidden text-sm border border-gray-300  dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 p-2 mb-4 rounded-3xl"
+            className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           />
         </div>
       </div>
