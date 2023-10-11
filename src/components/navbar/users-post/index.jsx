@@ -60,39 +60,19 @@ export default function CreatePostForm() {
     >
       <h3>Create a new post</h3>
 
-      <section>
-        <div className="flex flex-col gap-1 mt-2">
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium leading-6 text-white"
-          >
-            Subject
-          </label>
+      <div className="flex items-start space-x-4">
+        
+        <div className="flex-grow w-full mt-2">
 
-          <input
+          <textarea
+            placeholder="What's happening?"
             id="title"
             name="title"
-            required
-            className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-          />
-        </div>
-      </section>
-
-      <div>
-        <div className="flex flex-col gap-1 mt-2">
-          <label
-            htmlFor="userId"
-            className="block text-sm font-medium leading-6 text-white"
-          >
-            What´s on your mind?
-          </label>
-          <input
-            id="userId"
-            name="userId"
-            className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-          />
+            className="w-full h-auto resize-none overflow-hidden text-sm border border-gray-300  dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 p-2 rounded-3xl"
+          ></textarea>
         </div>
       </div>
+
 
       <div>
         <button
