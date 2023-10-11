@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Post from "../create-post/index";
 
 export default function ProfilePage() {
-  const [postText, setPostText] = useState("");
-  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState();
 
@@ -37,44 +34,12 @@ export default function ProfilePage() {
       } catch (error) {
         console.error("Error fetching posts:", error);
       } finally {
-        setLoading(false);
+        setLoading(loading);
       }
     };
 
     fetchPosts();
   }, []);
-
-  const handleOnSubmit = async (event) => {
-    event.preventDefault();
-
-    const newPostData = {
-      title: postText,
-      body: postText,
-      userId: getUserId(),
-    };
-
-    try {
-      const response = await fetch(
-        "https://api.noroff.dev/api/v1/social/posts",
-        options
-      );
-
-      if (response.ok) {
-        console.warn("Post created successfully");
-        setPostText("");
-        fetchPosts(); // Refresh the list of posts
-      } else {
-        console.error("Failed to create post");
-      }
-    } catch (error) {
-      console.error("Error creating post:", error);
-    }
-  };
-
-  const getUserId = () => {
-    // Implement your user ID retrieval logic here
-    return "85"; // Example user ID
-  };
 
   console.log(profile);
 
@@ -118,7 +83,7 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      {/* Create Post Section */}
+      {/* Create Post Section
       <div className="mt-4 w-full bg-orange-200 p-6 rounded-3xl border-2 border-orange-100 dark:bg-gray-800 dark:border-gray-700">
         <h1 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white mb-4 ml-2">
           What's on your mind...
@@ -149,9 +114,9 @@ export default function ProfilePage() {
             </button>
           </div>
         </form>
-      </div>
+      </div> */}
 
-      {/* Posts Section */}
+      {/* Posts Section
       <div className="mt-4">
         <h2 className="text-xl font-semibold mb-2">Recent Posts:</h2>
         {loading ? (
@@ -159,7 +124,7 @@ export default function ProfilePage() {
         ) : (
           posts.map((post, index) => <Post key={index} post={post} />)
         )}
-      </div>
+      </div> */}
     </div>
   );
 }
