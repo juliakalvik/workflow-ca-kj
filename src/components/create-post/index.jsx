@@ -6,10 +6,17 @@ export default function PostsPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const options = {
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
+    },
+  };
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch("YOUR_API_ENDPOINT/posts");
+        const response = await fetch("https://api.noroff.dev/api/v1/social/posts", options);
         if (response.ok) {
           const data = await response.json();
           setPosts(data);
