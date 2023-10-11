@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from "react";
 
-
 export default function PostsPage() {
   const [postText, setPostText] = useState("");
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const userId = "Tonje"; // Replace with the user ID you want to display posts for
+
+  const options = {
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRarcI6IkpvaG4gRG9lIiwiZW1haWwiOiJqb2huLmRvZUBzdHVkLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
+    },
+  };
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchUserPosts = async () => {
       try {
-        const response = await fetch("YOUR_API_ENDPOINT/posts");
+        const response = await fetch(
+          `https://api.noroff.dev/api/v1/social/posts?userId=${userId}`,
+          options
+        );
         if (response.ok) {
           const data = await response.json();
           setPosts(data);
@@ -23,8 +33,8 @@ export default function PostsPage() {
       }
     };
 
-    fetchPosts();
-  }, []);
+    fetchUserPosts();
+  }, [userId]);
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
@@ -32,23 +42,27 @@ export default function PostsPage() {
     const newPost = {
       title: postText,
       body: postText,
-      userId: getUserId(), // Implement your user ID retrieval logic here
+      userId,
     };
 
     try {
-      // Replace 'YOUR_API_ENDPOINT' with the actual URL of your API endpoint for posting posts.
-      const response = await fetch("https://docs.noroff.dev//social/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newPost),
-      });
+      const response = await fetch(
+        "https://api.noroff.dev/api/v1/social/posts",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRarcI6IkpvaG4gRG9lIiwiZW1haWwiOiJqb2huLmRvZUBzdHVkLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
+          },
+          body: JSON.stringify(newPost),
+        }
+      );
 
       if (response.ok) {
         console.warn("Post created successfully");
         setPostText("");
-        fetchPosts(); // Refresh the list of posts
+        fetchUserPosts(); // Refresh the list of posts
       } else {
         console.error("Failed to create post");
       }
@@ -57,14 +71,9 @@ export default function PostsPage() {
     }
   };
 
-  const getUserId = () => {
-    // Implement your user ID retrieval logic here
-    return "user123"; // Example user ID
-  };
-
   return (
     <>
-      <h1>Posts</h1>
+      <h1>Posts by {userId}</h1>
 
       <div className="bg-white w-full mt-2 p-4 mb-8 rounded-3xl shadow-md border-2 border-gray-200">
         <form onSubmit={handleOnSubmit}>
@@ -77,7 +86,7 @@ export default function PostsPage() {
                 className="w-full p-3 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-400"
                 value={postText}
                 onChange={(e) => setPostText(e.target.value)}
-                rows="4" 
+                rows="4"
               />
             </div>
           </div>
@@ -85,7 +94,7 @@ export default function PostsPage() {
           <div className="flex items-center justify-end mt-3">
             <button
               type="submit"
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-400"
+              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover-bg-indigo-700 focus:outline-none focus:ring focus-ring-indigo-400"
             >
               Post
             </button>
@@ -99,7 +108,7 @@ export default function PostsPage() {
           ) : (
             <ul>
               {posts.map((post, index) => (
-                <li key={index} className="mb-2">
+                <li key={post.id} className="mb-2">
                   {post.title}
                 </li>
               ))}
@@ -110,3 +119,4 @@ export default function PostsPage() {
     </>
   );
 }
+
