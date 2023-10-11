@@ -10,7 +10,7 @@ export default function ProfilePage() {
   //   const url = new URL("https://example.com?foo=1&bar=2");
 
   // const personname = new URLSearchParams(url.search);
-  const personName = "zzz";
+  const personName = "Tonje";
 
   const options = {
     headers: {
@@ -54,13 +54,10 @@ export default function ProfilePage() {
     };
 
     try {
-      const response = await fetch("YOUR_API_ENDPOINT/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newPostData),
-      });
+      const response = await fetch(
+        "https://api.noroff.dev/api/v1/social/posts",
+        options
+      );
 
       if (response.ok) {
         console.warn("Post created successfully");
@@ -76,7 +73,7 @@ export default function ProfilePage() {
 
   const getUserId = () => {
     // Implement your user ID retrieval logic here
-    return "user123"; // Example user ID
+    return "85"; // Example user ID
   };
 
   console.log(profile);
@@ -85,13 +82,23 @@ export default function ProfilePage() {
     <div className="w-full">
       {/* Profile Section */}
       <div className="bg-neutral-100 text-gray-900 dark:text-white border-2 border-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl overflow-hidden">
-        {/* Profile Banner */}
         <div
           className={`relative bg-indigo-600 h-40`}
           style={{ backgroundColor: "#F4D196" }}
         >
+          <img
+            src={profile?.banner}
+            alt="Banner"
+            className="w-full h-full object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-indigo-400 opacity-50"></div>
-          <div className="absolute inset-0 flex items-center justify-center"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img
+              src={profile?.avatar}
+              alt="Avatar"
+              className="w-32 h-32 rounded-full object-cover border-4 border-white"
+            />
+          </div>
         </div>
         {/* Profile Details */}
         <div className="px-6 py-8">
