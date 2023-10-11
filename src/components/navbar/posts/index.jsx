@@ -16,7 +16,7 @@ function OtherPosts() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://api.noroff.dev/api/v1/social/posts?limit=10",
+        "https://api.noroff.dev/api/v1/social/posts?limit=1",
         accessKey
       );
 
