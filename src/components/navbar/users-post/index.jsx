@@ -6,8 +6,19 @@
 
  * @author PetterMartin*/
 
+let lastRequestTime = 0;
+
 export default function CreatePostForm() {
   async function handleOnSubmit(event) {
+    const currentTime = Date.now();
+
+    if (currentTime - lastRequestTime < 5000) {
+      console.log("Wait 5 seconds between requests.");
+      return;
+    }
+
+    lastRequestTime = currentTime;
+
     event.preventDefault();
 
     const form = event.target;
@@ -55,49 +66,29 @@ export default function CreatePostForm() {
 
   return (
     <form
-      className=" bg-neutral-100 text-gray-900 w-full text-xl p-4 mb-1 rounded-3xl border-2 border-white dark:bg-gray-800 dark:border-gray-700"
+      className="w-full p-4 mb-1 text-xl text-gray-900 border-2 border-white bg-neutral-100 rounded-3xl dark:bg-gray-800 dark:border-gray-700"
       onSubmit={handleOnSubmit}
     >
       <h3>Create a new post</h3>
 
-      <section>
-        <div className="flex flex-col gap-1 mt-2">
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium leading-6 text-white"
-          >
-            Subject
-          </label>
+      <div className="flex items-start space-x-4">
 
-          <input
+        <div className="flex-grow w-full mt-2">
+
+          <textarea
+            placeholder="What's happening?"
             id="title"
             name="title"
-            required
-            className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-          />
-        </div>
-      </section>
-
-      <div>
-        <div className="flex flex-col gap-1 mt-2">
-          <label
-            htmlFor="userId"
-            className="block text-sm font-medium leading-6 text-white"
-          >
-            What´s on your mind?
-          </label>
-          <input
-            id="userId"
-            name="userId"
-            className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-          />
+            className="w-full h-auto p-2 overflow-hidden text-sm border border-gray-300 resize-none dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 rounded-3xl"
+          ></textarea>
         </div>
       </div>
+
 
       <div>
         <button
           type="submit"
-          className="bg-orange-200 dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 text-gray-900 px-12 py-2 rounded-3xl ms-1 border-2 border-orange-200 hover:border-orange-100 shadow-custom leading-tight tracking-tight"
+          className="px-12 py-2 leading-tight tracking-tight text-gray-900 bg-orange-200 border-2 border-orange-200 dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 rounded-3xl ms-1 hover:border-orange-100 shadow-custom"
         >
           Post
         </button>

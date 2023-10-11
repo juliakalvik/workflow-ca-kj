@@ -16,7 +16,7 @@ function OtherPosts() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://api.noroff.dev/api/v1/social/posts?limit=1",
+        "https://api.noroff.dev/api/v1/social/posts?limit=10",
         accessKey
       );
 
@@ -35,15 +35,21 @@ function OtherPosts() {
   };
 
   useEffect(() => {
-    fetchData();
-  });
+    fetchData(); // Fetch immediately once
+
+    const timer = setInterval(() => {
+      fetchData();
+    }, 5000); // Fetch every 5 seconds
+
+    return () => clearInterval(timer); // Cleanup
+  }, []);
 
   return (
-    <div className="w-full bg-orange-200 p-6 rounded-3xl border-2 border-orange-100 dark:bg-gray-800 dark:border-gray-700">
-      <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 text-left">
+    <div className="w-full p-6 bg-orange-200 border-2 border-orange-100 rounded-3xl dark:bg-gray-800 dark:border-gray-700">
+      <h1 className="mb-4 text-2xl font-bold text-left text-gray-800 dark:text-white">
         Posts
       </h1>
-  
+
       {isLoading ? (
         <p>Loading...</p>
       ) : error ? (
@@ -52,18 +58,18 @@ function OtherPosts() {
         data.map((post, index) => (
           <div
             key={index}
-            className="w-full bg-neutral-100 p-4 rounded-3xl border-2 border-white dark:bg-gray-700 dark:border-gray-600 mb-4" // Add margin-bottom here
+            className="w-full p-4 mb-4 border-2 border-white bg-neutral-100 rounded-3xl dark:bg-gray-700 dark:border-gray-600" // Add margin-bottom here
           >
             {/* Post Content */}
-            <div className="w-full flex items-start flex-wrap">
+            <div className="flex flex-wrap items-start w-full">
               {/* Content Text */}
-              <p className="text-sm sm:text-base text-gray-600 dark:text-white mb-2">
+              <p className="mb-2 text-sm text-gray-600 sm:text-base dark:text-white">
                 Title: {post.title} {/* Render the title */}
               </p>
-              <p className="text-sm sm:text-base text-gray-600 dark:text-white mb-2">
+              <p className="mb-2 text-sm text-gray-600 sm:text-base dark:text-white">
                 Body: {post.body} {/* Render the body */}
               </p>
-  
+
               {/* Media */}
               {post.media && (
                 <img
@@ -73,32 +79,32 @@ function OtherPosts() {
                 />
               )}
             </div>
-  
+
             {/* User Section */}
-            <div className="w-full flex flex-wrap items-start justify-between mb-2"> {/* Add margin-bottom here */}
+            <div className="flex flex-wrap items-start justify-between w-full mb-2"> {/* Add margin-bottom here */}
               {/* User Icon */}
               <img
                 src={UserIcon}
                 alt="User Icon"
                 className="w-10 h-10 rounded-full dark:invert"
               />
-  
+
               {/* User Name */}
-              <p className="ml-2 text-black dark:text-white text-sm hidden xxs:inline-block">
+              <p className="hidden ml-2 text-sm text-black dark:text-white xxs:inline-block">
                 John Doe
               </p>
-  
+
               {/* Username */}
-              <p className="text-gray-600 dark:text-white text-sm ml-2">
+              <p className="ml-2 text-sm text-gray-600 dark:text-white">
                 @JohnDoe
               </p>
             </div>
             {/* Like and Comment Buttons */}
-            <div className="w-full flex items-center justify-end flex-wrap">
-              <button className="text-sm text-gray-600 dark:text-white border-gray-300 dark:bg-gray-700 dark:border-gray-600 hover:text-blue-500 mr-4">
+            <div className="flex flex-wrap items-center justify-end w-full">
+              <button className="mr-4 text-sm text-gray-600 border-gray-300 dark:text-white dark:bg-gray-700 dark:border-gray-600 hover:text-blue-500">
                 Like
               </button>
-              <button className="text-sm text-gray-600 dark:text-white border-gray-300 dark:bg-gray-700 dark:border-gray-600 hover:text-blue-500">
+              <button className="text-sm text-gray-600 border-gray-300 dark:text-white dark:bg-gray-700 dark:border-gray-600 hover:text-blue-500">
                 Comment
               </button>
             </div>
