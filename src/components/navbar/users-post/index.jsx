@@ -69,7 +69,7 @@ export default function CreatePostForm() {
       className="w-full p-4 mb-1 text-xl text-gray-900 border-2 border-white bg-neutral-100 rounded-3xl dark:bg-gray-800 dark:border-gray-700"
       onSubmit={handleOnSubmit}
     >
-      <h3>Create a new post</h3>
+      <h3>Create a new posts</h3>
 
       <section>
         <div className="flex flex-col gap-1 mt-2">
