@@ -63,10 +63,10 @@ function OtherPosts() {
               "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
           },
           body: JSON.stringify({
-            title: data[editIndex].title, // Keep the title unchanged
-            body: editedBody, // Update the body text
-            tags: data[editIndex].tags, // Keep tags unchanged
-            media: data[editIndex].media, // Keep media URL unchanged
+            title: data[editIndex].title, 
+            body: editedBody, 
+            tags: data[editIndex].tags, 
+            media: data[editIndex].media, 
           }),
         }
       );
@@ -84,6 +84,36 @@ function OtherPosts() {
       setEditedBody("");
       // Refetch the data after updating
       fetchData();
+    }
+  };
+
+  const handleDeleteClick = async (postId) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
+
+    if (isConfirmed) {
+      try {
+        const response = await fetch(
+          `https://api.noroff.dev/api/v1/social/posts/${postId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
+            },
+          }
+        );
+
+        if (response.ok) {
+          console.log("Post deleted successfully!");
+          fetchData();
+        } else {
+          throw new Error("Failed to delete post");
+        }
+      } catch (error) {
+        console.error("Error deleting post:", error);
+      }
     }
   };
 
@@ -159,7 +189,10 @@ function OtherPosts() {
                     Edit
                   </button>
                 )}
-                <button className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-red-500 hover:border-red-500">
+                <button
+                  onClick={() => handleDeleteClick(post.id)}
+                  className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-red-500 hover:border-red-500"
+                >
                   Delete
                 </button>
               </div>
