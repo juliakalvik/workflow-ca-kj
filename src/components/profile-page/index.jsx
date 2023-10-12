@@ -7,12 +7,12 @@ export default function ProfilePage() {
   //   const url = new URL("https://example.com?foo=1&bar=2");
 
   // const personname = new URLSearchParams(url.search);
-  const personName = "Tonje";
+  const personName = "Mirmir";
 
   const options = {
     headers: {
       Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQyMywibmFtZSI6Ik1pcm1pciIsImVtYWlsIjoiTWlybWlyMjAyM0BzdHVkLm5vcm9mZi5ubyIsImF2YXRhciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTk4MDc5MjUzNDIyLTYzOGZhOWIyZDE2MD9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeHpaV0Z5WTJoOE1UUjhmSEJwZEdKMWJHeDhaVzU4TUh4OE1IeDhmREElM0QmYXV0bz1mb3JtYXQmZml0PWNyb3Amdz04MDAmcT02MCIsImJhbm5lciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNjk2OTIxODgxOTAzLWU4N2U1NjYyZDliND9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeGxaR2wwYjNKcFlXd3RabVZsWkh3ME1ueDhmR1Z1ZkRCOGZIeDhmQSUzRCUzRCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcCZ3PTgwMCZxPTYwIiwiaWF0IjoxNjk3MDQ5MDUxfQ.r5ztdR0-BzXv2yYLDfXcmZ-lve4mB4fNhZqC1ypd4i4",
     },
   };
 
@@ -68,63 +68,20 @@ export default function ProfilePage() {
         {/* Profile Details */}
         <div className="px-6 py-8">
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl font-semibold text-gray-800 dark:text-white">
-            Profile Name {profile?.name}
+            {profile?.name}
           </h1>
-          <p className="text-gray-600 dark:text-white">Profile Bio</p>
+          <p className="text-gray-600 dark:text-white">Bio</p>
         </div>
         {/* Bio */}
         <div className="px-6 py-4">
           <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
-            Bio {profile?.email}
+              {profile?.email}
           </h2>
           <p className="text-sm sm:text-sm md:text-sm text-gray-600 dark:text-white">
             I DANCE FOR MONEY
           </p>
         </div>
       </div>
-
-      {/* Create Post Section
-      <div className="mt-4 w-full bg-orange-200 p-6 rounded-3xl border-2 border-orange-100 dark:bg-gray-800 dark:border-gray-700">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white mb-4 ml-2">
-          What's on your mind...
-        </h1>
-        <form onSubmit={handleOnSubmit}>
-          <div className="flex items-start space-x-4">
-            <img
-              className="w-10 h-10 rounded-full"
-              src="user-avatar.jpg" // Replace with the actual path to your user's avatar
-              alt="User Avatar"
-            />
-            <div className="flex-grow">
-              <textarea
-                placeholder="Write your post here..."
-                className="w-full p-3 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-400"
-                value={postText}
-                onChange={(e) => setPostText(e.target.value)}
-                rows="4"
-              />
-            </div>
-          </div>
-          <div className="flex items-center justify-end mt-3">
-            <button
-              type="submit"
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-400"
-            >
-              Post
-            </button>
-          </div>
-        </form>
-      </div> */}
-
-      {/* Posts Section
-      <div className="mt-4">
-        <h2 className="text-xl font-semibold mb-2">Recent Posts:</h2>
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          posts.map((post, index) => <Post key={index} post={post} />)
-        )}
-      </div> */}
     </div>
   );
 }

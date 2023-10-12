@@ -1,8 +1,8 @@
 import Header from "../components/navbar/header";
 import NavBar from "../components/navbar/home-nav";
-import TrendingSection from "../components/navbar/trending";
 import ProfilePage from "../components/profile-page";
-import SingelPost from "../components/create-post"
+import SingelPost from "../components/create-post";
+import Sosials from "../components/Sosials-profile";
 
 export default function Profile() {
   return (
@@ -26,7 +26,8 @@ export default function Profile() {
 
           {/* Right Side */}
           <div className="w-0 sm:w-0 md:w-2/12">
-            <TrendingSection />
+            
+            <Sosials/>
           </div>
         </div>
       </div>
