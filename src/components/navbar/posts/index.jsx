@@ -1,3 +1,7 @@
+/** *Reusable Input and Button Components
+
+ * @author PetterMartin*/
+
 import React, { useState, useEffect } from "react";
 import UserIcon from "../../../assets/icons/user.svg";
 
@@ -63,10 +67,10 @@ function OtherPosts() {
               "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
           },
           body: JSON.stringify({
-            title: data[editIndex].title, 
-            body: editedBody, 
-            tags: data[editIndex].tags, 
-            media: data[editIndex].media, 
+            title: data[editIndex].title,
+            body: editedBody,
+            tags: data[editIndex].tags,
+            media: data[editIndex].media,
           }),
         }
       );
@@ -79,10 +83,8 @@ function OtherPosts() {
     } catch (error) {
       console.error("Error updating post:", error);
     } finally {
-      // Reset edit state
       setEditIndex(null);
       setEditedBody("");
-      // Refetch the data after updating
       fetchData();
     }
   };
@@ -128,25 +130,27 @@ function OtherPosts() {
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        data.map((post, index) => (
-          <div
-            key={index}
-            className="w-full p-4 mb-4 border-2 border-white bg-neutral-100 rounded-3xl dark:bg-gray-700 dark:border-gray-600"
-          >
-            {/* Title */}
-            <h2 className="mb-2 text-lg font-semibold text-left text-gray-800 dark:text-white">
-              {post.title}
-            </h2>
+        data
+          .filter((post) => post.title || post.body || post.media)
+          .map((post, index) => (
+            <div
+              key={index}
+              className="w-full p-4 mb-4 border-2 border-white bg-neutral-100 rounded-3xl dark:bg-gray-700 dark:border-gray-600"
+            >
+              {/* Title */}
+              <h2 className="text-lg font-bold text-left text-gray-800 dark:text-white">
+                {post.title}
+              </h2>
 
             {/* Body */}
             {editIndex === index ? (
               <textarea
-                className="w-full mb-2 p-2 text-sm text-left text-gray-600 sm:text-base dark:text-white"
+                className="w-full p-2 text-base text-left text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-700 border border-gray-400 dark:border-gray-600 rounded-lg"
                 value={editedBody}
                 onChange={(e) => setEditedBody(e.target.value)}
               />
             ) : (
-              <p className="mb-2 text-sm text-left text-gray-600 sm:text-base dark:text-white">
+              <p className="mb-2 text-base text-left text-gray-800 dark:text-white">
                 {post.body}
               </p>
             )}
@@ -183,7 +187,7 @@ function OtherPosts() {
                   </button>
                 ) : (
                   <button
-                    className="mr-2 text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-yellow-500 hover:border-yellow-500"
+                    className="mr-2 text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-yellow-500 hover:border-yellow-400"
                     onClick={() => handleEditClick(index, post.body)}
                   >
                     Edit
