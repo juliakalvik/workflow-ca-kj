@@ -131,7 +131,7 @@ function OtherPosts() {
         <p>Error: {error}</p>
       ) : (
         data
-          .filter((post) => post.title || post.body || post.media) // Filter out posts without title, body, or media
+          .filter((post) => post.title || post.body || post.media)
           .map((post, index) => (
             <div
               key={index}
