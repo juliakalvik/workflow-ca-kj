@@ -130,15 +130,17 @@ function OtherPosts() {
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        data.map((post, index) => (
-          <div
-            key={index}
-            className="w-full p-4 mb-4 border-2 border-white bg-neutral-100 rounded-3xl dark:bg-gray-700 dark:border-gray-600"
-          >
-            {/* Title */}
-            <h2 className="text-lg font-bold text-left text-gray-800 dark:text-white">
-              {post.title}
-            </h2>
+        data
+          .filter((post) => post.title || post.body || post.media) // Filter out posts without title, body, or media
+          .map((post, index) => (
+            <div
+              key={index}
+              className="w-full p-4 mb-4 border-2 border-white bg-neutral-100 rounded-3xl dark:bg-gray-700 dark:border-gray-600"
+            >
+              {/* Title */}
+              <h2 className="text-lg font-bold text-left text-gray-800 dark:text-white">
+                {post.title}
+              </h2>
 
             {/* Body */}
             {editIndex === index ? (
