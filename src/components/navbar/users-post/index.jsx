@@ -21,7 +21,7 @@ export default function CreatePostForm() {
     event.preventDefault();
 
     const form = event.target;
-    const { title, body } = form.elements;
+    const { title, body, imageUrl } = form.elements;
 
     const accessKey = {
       headers: {
@@ -33,15 +33,17 @@ export default function CreatePostForm() {
     const newPost = {
       title: title.value,
       body: body.value,
+      media: imageUrl.value, 
     };
+
 
     try {
       const response = await fetch(
-        "https://api.noroff.dev/api/v1/social/posts?limit=1",
+        "https://api.noroff.dev/api/v1/social/posts",
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json; charset=UTF-8",
+            "Content-Type": "application/json",
             ...accessKey.headers,
           },
           body: JSON.stringify(newPost),
@@ -95,9 +97,21 @@ export default function CreatePostForm() {
           <input
             id="body"
             name="body"
-            className="w-full h-20 resize-none overflow-hidden text-sm border border-gray-300  dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 p-2 mb-4 rounded-3xl"
+            className="w-full h-20 resize-none overflow-hidden text-sm border border-gray-300  dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 p-2 rounded-3xl"
           />
         </div>
+      </div>
+
+      <div className="flex flex-col gap-1 mt-2 mb-4">
+        <label htmlFor="imageUrl" className="block text-sm leading-6 text-black">
+          Upload Image (Optional)
+        </label>
+        <input
+          type="url"
+          id="imageUrl"
+          name="imageUrl"
+          className="border border-gray-300 dark:text-white dark:bg-gray-700 dark:border-gray-600 p-2 rounded-3xl"
+        />
       </div>
 
       <div>
