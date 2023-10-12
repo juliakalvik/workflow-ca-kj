@@ -34,7 +34,6 @@ export default function fetcher(url, options) {
 /** *Sign up user - register page - @author Cnbergh*/
 export async function registerUser({ email, password, username }) {
   const url = new URL(`${API_URL}/auth/register`);
-  console.log("URL: ", url);
 
   const userData = {
     name: username,
@@ -49,7 +48,6 @@ export async function registerUser({ email, password, username }) {
     },
     body: JSON.stringify(userData),
   };
-  console.log("Options: ", options);
 
   try {
     const response = await fetch(url, options);
@@ -67,6 +65,7 @@ export async function registerUser({ email, password, username }) {
 /** *Login user - login page - @author Cnbergh*/
 export async function loginUser(email, password) {
   const url = new URL(`${API_URL}/auth/login`);
+  console.log("URL:", url);
 
   const options = {
     method: "POST",
@@ -75,7 +74,7 @@ export async function loginUser(email, password) {
     },
     body: JSON.stringify({ email, password }),
   };
-
+  console.log("Options: ", options);
   try {
     const response = await fetch(url, options);
 
