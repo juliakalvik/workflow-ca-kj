@@ -30,6 +30,68 @@ export default function fetcher(url, options) {
  * Fetch all posts with comments, reactions and the author
  * @returns {Object | Error} - A list of posts
  */
+
+/** *Sign up user - register page - @author Cnbergh*/
+export async function registerUser({ email, password, username }) {
+  const url = new URL(`${API_URL}/auth/register`);
+  console.log("URL: ", url);
+
+  const userData = {
+    name: username,
+    email,
+    password,
+  };
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  };
+  console.log("Options: ", options);
+
+  try {
+    const response = await fetch(url, options);
+
+    if (!response.ok) throw new Error(response.statusText);
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+/** *Login user - login page - @author Cnbergh*/
+export async function loginUser(email, password) {
+  const url = new URL(`${API_URL}/auth/login`);
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  };
+
+  try {
+    const response = await fetch(url, options);
+
+    if (!response.ok) throw new Error(response.statusText);
+
+    const data = await response.json();
+
+    localStorage.setItem("jwt", data.accessToken);
+
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+/** *Fetch all posts*/
 export async function fetchAllPosts() {
   const url = new URL(`${API_URL}/posts`);
 
