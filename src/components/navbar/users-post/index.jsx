@@ -21,7 +21,7 @@ export default function CreatePostForm() {
     event.preventDefault();
 
     const form = event.target;
-    const { title, userId } = form.elements;
+    const { title, body } = form.elements;
 
     const accessKey = {
       headers: {
@@ -32,8 +32,7 @@ export default function CreatePostForm() {
 
     const newPost = {
       title: title.value,
-      body: title.value,
-      userId: userId.value,
+      body: body.value,
     };
 
     try {
@@ -72,13 +71,9 @@ export default function CreatePostForm() {
 
       <section>
         <div className="flex flex-col gap-1 mt-2">
-          <label
-            htmlFor="title"
-            className="block text-sm leading-6 text-black"
-          >
+          <label htmlFor="title" className="block text-sm leading-6 text-black">
             Subject
           </label>
-
 
           <input
             id="title"
@@ -86,7 +81,6 @@ export default function CreatePostForm() {
             required
             className="w-full h-auto resize-none overflow-hidden text-sm border border-gray-300  dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 p-2 rounded-3xl"
           />
-
         </div>
       </section>
 
@@ -99,8 +93,8 @@ export default function CreatePostForm() {
             What´s on your mind?
           </label>
           <input
-            id="userId"
-            name="userId"
+            id="body"
+            name="body"
             className="w-full h-20 resize-none overflow-hidden text-sm border border-gray-300  dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 p-2 mb-4 rounded-3xl"
           />
         </div>
