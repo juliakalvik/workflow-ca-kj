@@ -1,5 +1,4 @@
-/* import LoginForm from "../components/login-form/index"; */
-import { loginUser } from '../../src/lib/api';
+import { loginUser } from '../../src/lib/api.js';
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import logo from "../assets/Y_logo.png";
@@ -30,10 +29,11 @@ export default function LoginPage() {
       email: email.value,
       password: password.value,
     };
+    console.log("Payload:", payload);
 
     try {
       const res = await loginUser(payload);  // Use loginUser
-      localStorage.setItem("access_token", res.accessToken);
+      localStorage.setItem("jwt", res.accessToken);
       setData(res);
       setIsSuccess(true);
       navigateToHome();
