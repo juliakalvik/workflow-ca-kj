@@ -1,4 +1,5 @@
 /* import LoginForm from "../components/login-form/index"; */
+import { loginUser } from '../../src/lib/api';
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import logo from "../assets/Y_logo.png";
@@ -25,29 +26,16 @@ export default function LoginPage() {
     event.preventDefault();
 
     const { email, password } = event.target.elements;
-
     const payload = {
       email: email.value,
       password: password.value,
     };
 
     try {
-      const res = await fetch(
-        "https://api.noroff.dev/api/v1/social/auth/login",
-        {
-          method: "POST",
-          body: JSON.stringify(payload),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        }
-      );
-
-      const data = await res.json();
-
-      localStorage.setItem("access_token", data.accessToken);
-      setData(data);
-      setIsSuccess(res.ok);
+      const res = await loginUser(payload);  // Use loginUser
+      localStorage.setItem("access_token", res.accessToken);
+      setData(res);
+      setIsSuccess(true);
       navigateToHome();
     } catch (error) {
       console.warn("An error occurred", error);
@@ -58,6 +46,7 @@ export default function LoginPage() {
   };
 
   if (error) return <div>An error occurred: {error?.message}</div>;
+
   return (
     <div className="p-4 rounded-lg dark:bg-gray-900 md:p-10">
       <div className="flex items-center justify-center">
