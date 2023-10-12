@@ -12,8 +12,8 @@ export default function CreatePostForm() {
   async function handleOnSubmit(event) {
     const currentTime = Date.now();
 
-    if (currentTime - lastRequestTime < 5000) {
-      console.log("Wait 5 seconds between requests.");
+    if (currentTime - lastRequestTime < 10000) {
+      console.log("Wait 10 seconds between requests.");
       return;
     }
 
