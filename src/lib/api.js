@@ -64,7 +64,6 @@ export async function registerUser({ email, password, username }) {
 /** *Login user - login page - @author Cnbergh*/
 export async function loginUser(email, password) {
   const url = new URL(`${API_URL}/auth/login`);
-  console.log("URL:", url);
 
   const options = {
     method: "POST",
@@ -73,14 +72,12 @@ export async function loginUser(email, password) {
     },
     body: JSON.stringify(email, password),
   };
-  console.log("Options: ", options);
   try {
     const response = await fetch(url, options);
 
     if (!response.ok) throw new Error(response.statusText);
 
     const data = await response.json();
-    console.log("data:", data);
     localStorage.setItem("jwt", data.accessToken);
 
     return data;
