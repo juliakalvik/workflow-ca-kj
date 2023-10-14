@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import fetcher from "../Sosials-profile/index";
 
 const Sosials = () => {
   const [profile, setProfile] = useState(null);
@@ -22,11 +23,10 @@ const Sosials = () => {
           sortOrder: sorting.sortOrder,
         });
 
-        const response = await fetch(
+        const response = await fetcher(
           `https://api.noroff.dev/api/v1/social/profiles/?${params.toString()}`,
           {
             method: "GET",
-            headers: options.headers,
           }
         );
 
@@ -118,27 +118,27 @@ const Sosials = () => {
   };
 
   return (
-    <div className="hidden h-full w-full md:block bg-white text-gray-800 dark:text-white border border-gray-300 dark:bg-gray-800 dark:border-gray-700 p-4 rounded-lg">
+    <div className="hidden w-full h-full p-4 text-gray-800 bg-white border border-gray-300 rounded-lg md:block dark:text-white dark:bg-gray-800 dark:border-gray-700">
       <h1 className="text-2xl font-semibold text-black dark:text-white">Follow</h1>
       <div className="mt-6 space-y-2">
-        <p className="text-gray-600 dark:text-white text-sm">Profile Suggestions</p>
+        <p className="text-sm text-gray-600 dark:text-white">Profile Suggestions</p>
         {profile?.avatar && (
           <img
             src={profile?.avatar}
             alt={profile?.name}
-            className="rounded-full w-12 h-12 self-center"
+            className="self-center w-12 h-12 rounded-full"
           />
         )}
         <h2 className="text-lg font-semibold text-black dark:text-white">
           {profile?.name}
         </h2>
-        <p className="text-gray-600 text-sm dark:text-white">{profile?.email}</p>
+        <p className="text-sm text-gray-600 dark:text-white">{profile?.email}</p>
         {isFollowing ? (
-          <button onClick={handleUnfollow} className="hidden md:inline-block bg-orange-200 dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400  text-gray-900 p-2 w-full mt-auto rounded-3xl border-2 border-orange-200 hover:border-orange-100 shadow-custom leading-tight tracking-tight">
+          <button onClick={handleUnfollow} className="hidden w-full p-2 mt-auto leading-tight tracking-tight text-gray-900 bg-orange-200 border-2 border-orange-200 md:inline-block dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 rounded-3xl hover:border-orange-100 shadow-custom">
             Unfollow
           </button>
         ) : (
-          <button onClick={handleFollow} className="hidden md:inline-block bg-orange-200 dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400  text-gray-900 p-2 w-full mt-auto rounded-3xl border-2 border-orange-200 hover:border-orange-100 shadow-custom leading-tight tracking-tight">
+          <button onClick={handleFollow} className="hidden w-full p-2 mt-auto leading-tight tracking-tight text-gray-900 bg-orange-200 border-2 border-orange-200 md:inline-block dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 rounded-3xl hover:border-orange-100 shadow-custom">
             Follow
           </button>
         )}
@@ -146,12 +146,12 @@ const Sosials = () => {
         <div className="">
           <button
             onClick={handlePrevProfile}
-            className="hidden md:inline-block bg-orange-200 dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400  text-gray-900 p-2 w-full mt-auto rounded-3xl border-2 border-orange-200 hover:border-orange-100 shadow-custom leading-tight tracking-tight"
+            className="hidden w-full p-2 mt-auto leading-tight tracking-tight text-gray-900 bg-orange-200 border-2 border-orange-200 md:inline-block dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 rounded-3xl hover:border-orange-100 shadow-custom"
             disabled={pagination.offset === 0}
           >
             Previous
           </button>
-          <button onClick={handleNextProfile} className="hidden md:inline-block bg-orange-200 dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400  text-gray-900 p-2 w-full mt-auto rounded-3xl border-2 border-orange-200 hover:border-orange-100 shadow-custom leading-tight tracking-tight">
+          <button onClick={handleNextProfile} className="hidden w-full p-2 mt-auto leading-tight tracking-tight text-gray-900 bg-orange-200 border-2 border-orange-200 md:inline-block dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 rounded-3xl hover:border-orange-100 shadow-custom">
             Next
           </button>
         </div>
@@ -161,7 +161,7 @@ const Sosials = () => {
             id="sortSelect"
             onChange={handleSortChange}
             value={`${sorting.sort}|${sorting.sortOrder}`}
-            className="bg-white dark:bg-gray-700 border rounded-md p-1"
+            className="p-1 bg-white border rounded-md dark:bg-gray-700"
           >
             <option value="name|asc">Name (A-Z)</option>
             <option value="name|desc">Name (Z-A)</option>

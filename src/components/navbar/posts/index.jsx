@@ -4,6 +4,7 @@
 
 import React, { useState, useEffect } from "react";
 import UserIcon from "../../../assets/icons/user.svg";
+import CommentSection from "../commenting";
 
 function OtherPosts() {
   const [isLoading, setIsLoading] = useState(true);
@@ -13,11 +14,13 @@ function OtherPosts() {
   const [editedBody, setEditedBody] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  const [likedPosts, setLikedPosts] = useState([]);
+  const [comments, setComments] = useState({});
 
   const accessKey = {
     headers: {
       Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQyMywibmFtZSI6Ik1pcm1pciIsImVtYWlsIjoiTWlybWlyMjAyM0BzdHVkLm5vcm9mZi5ubyIsImF2YXRhciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTk4MDc5MjUzNDIyLTYzOGZhOWIyZDE2MD9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeHpaV0Z5WTJoOE1UUjhmSEJwZEdKMWJHeDhaVzU4TUh4OE1IeDhmREElM0QmYXV0bz1mb3JtYXQmZml0PWNyb3Amdz04MDAmcT02MCIsImJhbm5lciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNjk2OTIxODgxOTAzLWU4N2U1NjYyZDliND9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeGxaR2wwYjNKcFlXd3RabVZsWkh3ME1ueDhmR1Z1ZkRCOGZIeDhmQSUzRCUzRCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcCZ3PTgwMCZxPTYwIiwiaWF0IjoxNjk3MDYzMzIzfQ.NrTN_OF0maTAH0H_4mhdw4pIkDcuxz_sY3ISUcH-2m4",
     },
   };
 
@@ -27,10 +30,17 @@ function OtherPosts() {
         "https://api.noroff.dev/api/v1/social/posts?limit=10",
         accessKey
       );
-
+  
       if (response.ok) {
-        const data = await response.json();
-        setData(data);
+        const responseData = await response.json();
+        const updatedData = responseData.map((post) => {
+          const existingPost = data.find((p) => p.id === post.id);
+          if (existingPost) {
+            post.likes = existingPost.likes;
+          }
+          return post;
+        });
+        setData(updatedData);
       } else {
         throw new Error("Failed to fetch data");
       }
@@ -41,6 +51,7 @@ function OtherPosts() {
       setIsLoading(false);
     }
   };
+  
 
   useEffect(() => {
     fetchData();
@@ -58,7 +69,6 @@ function OtherPosts() {
   };
 
   useEffect(() => {
-    // Filter posts based on search term and update filteredData state
     const filteredPosts = data.filter(
       (post) =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -76,7 +86,7 @@ function OtherPosts() {
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQyMywibmFtZSI6Ik1pcm1pciIsImVtYWlsIjoiTWlybWlyMjAyM0BzdHVkLm5vcm9mZi5ubyIsImF2YXRhciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTk4MDc5MjUzNDIyLTYzOGZhOWIyZDE2MD9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeHpaV0Z5WTJoOE1UUjhmSEJwZEdKMWJHeDhaVzU4TUh4OE1IeDhmREElM0QmYXV0bz1mb3JtYXQmZml0PWNyb3Amdz04MDAmcT02MCIsImJhbm5lciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNjk2OTIxODgxOTAzLWU4N2U1NjYyZDliND9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeGxaR2wwYjNKcFlXd3RabVZsWkh3ME1ueDhmR1Z1ZkRCOGZIeDhmQSUzRCUzRCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcCZ3PTgwMCZxPTYwIiwiaWF0IjoxNjk3MDYzMzIzfQ.NrTN_OF0maTAH0H_4mhdw4pIkDcuxz_sY3ISUcH-2m4",
           },
           body: JSON.stringify({
             title: data[editIndex].title,
@@ -114,7 +124,7 @@ function OtherPosts() {
             method: "DELETE",
             headers: {
               Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQyMywibmFtZSI6Ik1pcm1pciIsImVtYWlsIjoiTWlybWlyMjAyM0BzdHVkLm5vcm9mZi5ubyIsImF2YXRhciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTk4MDc5MjUzNDIyLTYzOGZhOWIyZDE2MD9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeHpaV0Z5WTJoOE1UUjhmSEJwZEdKMWJHeDhaVzU4TUh4OE1IeDhmREElM0QmYXV0bz1mb3JtYXQmZml0PWNyb3Amdz04MDAmcT02MCIsImJhbm5lciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNjk2OTIxODgxOTAzLWU4N2U1NjYyZDliND9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeGxaR2wwYjNKcFlXd3RabVZsWkh3ME1ueDhmR1Z1ZkRCOGZIeDhmQSUzRCUzRCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcCZ3PTgwMCZxPTYwIiwiaWF0IjoxNjk3MDYzMzIzfQ.NrTN_OF0maTAH0H_4mhdw4pIkDcuxz_sY3ISUcH-2m4",
             },
           }
         );
@@ -130,6 +140,113 @@ function OtherPosts() {
       }
     }
   };
+
+  useEffect(() => {
+    const savedLikedPosts = localStorage.getItem("likedPosts");
+    if (savedLikedPosts) {
+      setLikedPosts(JSON.parse(savedLikedPosts));
+    }
+  
+    fetchData();
+  
+    const timer = setInterval(() => {
+      fetchData();
+    }, 10000);
+  
+    return () => clearInterval(timer);
+  }, []);
+  
+
+  const handleLikeClick = async (postId) => {
+    try {
+      if (!likedPosts.includes(postId)) {
+        const emojiSymbol = "👍";
+        const response = await fetch(
+          `https://api.noroff.dev/api/v1/social/posts/${postId}/react/${encodeURIComponent(
+            emojiSymbol
+          )}`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
+            },
+          }
+        );
+  
+        if (response.ok) {
+          const reactionData = await response.json();
+  
+          const updatedLikedPosts = [...likedPosts, postId];
+          setLikedPosts(updatedLikedPosts);
+          localStorage.setItem("likedPosts", JSON.stringify(updatedLikedPosts));
+  
+          setData((prevData) =>
+            prevData.map((post) =>
+              post.id === postId ? { ...post, likes: reactionData.count } : post
+            )
+          );
+        } else {
+          throw new Error("Failed to react to the post");
+        }
+      } else {
+        console.log("You have already liked this post.");
+      }
+    } catch (error) {
+      console.error("Error reacting to the post:", error);
+    }
+  };
+
+  useEffect(() => {
+    const storedComments = localStorage.getItem("comments");
+    if (storedComments) {
+      setComments(JSON.parse(storedComments));
+    }
+  }, []);
+  
+
+  const handleCommentSubmit = async (postId, comment) => {
+    try {
+      const response = await fetch(
+        `https://api.noroff.dev/api/v1/social/posts/${postId}/comment`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            body: comment,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
+          },
+        }
+      );
+  
+      if (response.ok) {
+        const newCommentData = await response.json();
+  
+        setComments((prevComments) => ({
+          ...prevComments,
+          [postId]: [...(prevComments[postId] || []), newCommentData.body],
+        }));
+
+        const storedComments = JSON.parse(localStorage.getItem("comments")) || {};
+  
+        const updatedComments = {
+          ...storedComments,
+          [postId]: [...(storedComments[postId] || []), newCommentData.body],
+        };
+        localStorage.setItem("comments", JSON.stringify(updatedComments));
+      } else {
+        throw new Error("Failed to submit comment");
+      }
+    } catch (error) {
+      console.error("Error submitting comment:", error);
+    }
+  };
+  
+  
+
+  
 
   return (
     <div className="w-full p-6 bg-orange-200 border-2 border-orange-100 rounded-3xl dark:bg-gray-800 dark:border-gray-700">
@@ -185,7 +302,7 @@ function OtherPosts() {
                 />
               )}
 
-              {/* User Icon, User ID, Like, and Comment Buttons */}
+              {/* User Icon, User ID, Like, Comment, and CommentSection */}
               <div className="flex flex-wrap items-center justify-between w-full mb-2">
                 <div className="flex items-center">
                   <img
@@ -198,17 +315,17 @@ function OtherPosts() {
                   </p>
                 </div>
 
-                <div className="flex items-center">
+                <div className="flex items-center gap-2">
                   {editIndex === index ? (
                     <button
-                      className="mr-2 text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-emerald-600 hover:border-emerald-600"
+                      className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-emerald-600 hover:border-emerald-600"
                       onClick={handleSaveClick}
                     >
                       Save
                     </button>
                   ) : (
                     <button
-                      className="mr-2 text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-yellow-500 hover:border-yellow-400"
+                      className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-yellow-500 hover:border-yellow-400"
                       onClick={() => handleEditClick(index, post.body)}
                     >
                       Edit
@@ -220,8 +337,21 @@ function OtherPosts() {
                   >
                     Delete
                   </button>
+                  <button
+                    className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-emerald-500 hover:border-emerald-500"
+                    onClick={() => handleLikeClick(post.id)}
+                  >
+                    {String.fromCodePoint(0x1f44d)} Like {post.likes}
+                  </button>
                 </div>
               </div>
+              
+              {/* Comment Section */}
+              <CommentSection
+                postId={post.id}
+                existingComments={comments[post.id] || []}
+                onCommentSubmit={handleCommentSubmit}
+              />
             </div>
           ))
       )}
