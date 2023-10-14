@@ -75,7 +75,7 @@ export async function loginUser(email, password) {
   };
   console.log("Options: ", options);
   try {
-    const response = await fetch(url.options);
+    const response = await fetch(url, options);
 
     if (!response.ok) throw new Error(response.statusText);
 
