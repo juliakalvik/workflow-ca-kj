@@ -2,6 +2,7 @@ import { loginUser } from '../../src/lib/api.js';
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import logo from "../assets/Y_logo.png";
+
 /**
  * Contains form for logging a registered user profile.
  * @see https://docs.noroff.dev/social-endpoints/authentication
@@ -33,7 +34,6 @@ export default function LoginPage() {
 
     try {
       const res = await loginUser(payload);  // Use loginUser
-      localStorage.setItem("jwt", res.accessToken);
       setData(res);
       setIsSuccess(true);
       navigateToHome();

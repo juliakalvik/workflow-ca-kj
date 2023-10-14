@@ -46,7 +46,7 @@ export default function ProfilePage() {
   return (
     <div className="w-full">
       {/* Profile Section */}
-      <div className="bg-neutral-100 text-gray-900 dark:text-white border-2 border-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl overflow-hidden">
+      <div className="overflow-hidden text-gray-900 border-2 border-white bg-neutral-100 dark:text-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl">
         <div
           className={`relative bg-indigo-600 h-40`}
           style={{ backgroundColor: "#F4D196" }}
@@ -54,30 +54,30 @@ export default function ProfilePage() {
           <img
             src={profile?.banner}
             alt="Banner"
-            className="w-full h-full object-cover"
+            className="object-cover w-full h-full"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-indigo-400 opacity-50"></div>
+          <div className="absolute inset-0 opacity-50 bg-gradient-to-r from-indigo-600 to-indigo-400"></div>
           <div className="absolute inset-0 flex items-center justify-center">
             <img
               src={profile?.avatar}
               alt="Avatar"
-              className="w-32 h-32 rounded-full object-cover border-4 border-white"
+              className="object-cover w-32 h-32 border-4 border-white rounded-full"
             />
           </div>
         </div>
         {/* Profile Details */}
         <div className="px-6 py-8">
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl font-semibold text-gray-800 dark:text-white">
+          <h1 className="text-xl font-semibold text-gray-800 sm:text-2xl md:text-3xl lg:text-3xl dark:text-white">
             {profile?.name}
           </h1>
           <p className="text-gray-600 dark:text-white">Bio</p>
         </div>
         {/* Bio */}
         <div className="px-6 py-4">
-          <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
+          <h2 className="text-base font-semibold text-gray-800 sm:text-lg md:text-xl dark:text-white">
               {profile?.email}
           </h2>
-          <p className="text-sm sm:text-sm md:text-sm text-gray-600 dark:text-white">
+          <p className="text-sm text-gray-600 sm:text-sm md:text-sm dark:text-white">
             I DANCE FOR MONEY
           </p>
         </div>
