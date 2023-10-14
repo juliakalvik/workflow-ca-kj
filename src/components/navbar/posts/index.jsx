@@ -4,6 +4,7 @@
 
 import React, { useState, useEffect } from "react";
 import UserIcon from "../../../assets/icons/user.svg";
+import CommentSection from "../commenting";
 
 function OtherPosts() {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,6 +15,7 @@ function OtherPosts() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
+  const [comments, setComments] = useState({});
 
   const accessKey = {
     headers: {
@@ -197,6 +199,63 @@ function OtherPosts() {
     }
   };
 
+  useEffect(() => {
+    const storedComments = localStorage.getItem("comments");
+    if (storedComments) {
+      setComments(JSON.parse(storedComments));
+    }
+  }, []);
+  
+
+  const handleCommentSubmit = async (postId, comment) => {
+    try {
+      const response = await fetch(
+        `https://api.noroff.dev/api/v1/social/posts/${postId}/comment`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            body: comment,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
+          },
+        }
+      );
+  
+      if (response.ok) {
+        const newCommentData = await response.json();
+  
+        // Update local state with new comment
+        setComments((prevComments) => ({
+          ...prevComments,
+          [postId]: [...(prevComments[postId] || []), newCommentData.body],
+        }));
+  
+        // Get the current comments from local storage
+        const storedComments = JSON.parse(localStorage.getItem("comments")) || {};
+  
+        // Update the stored comments with the new comment
+        const updatedComments = {
+          ...storedComments,
+          [postId]: [...(storedComments[postId] || []), newCommentData.body],
+        };
+  
+        // Save comments in local storage
+        localStorage.setItem("comments", JSON.stringify(updatedComments));
+      } else {
+        throw new Error("Failed to submit comment");
+      }
+    } catch (error) {
+      console.error("Error submitting comment:", error);
+    }
+  };
+  
+  
+
+  
+
   return (
     <div className="w-full p-6 bg-orange-200 border-2 border-orange-100 rounded-3xl dark:bg-gray-800 dark:border-gray-700">
       <h1 className="mb-4 text-2xl font-bold text-left text-gray-800 dark:text-white">
@@ -251,7 +310,7 @@ function OtherPosts() {
                 />
               )}
 
-              {/* User Icon, User ID, Like, and Comment Buttons */}
+              {/* User Icon, User ID, Like, Comment, and CommentSection */}
               <div className="flex flex-wrap items-center justify-between w-full mb-2">
                 <div className="flex items-center">
                   <img
@@ -290,11 +349,17 @@ function OtherPosts() {
                     className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-emerald-500 hover:border-emerald-500"
                     onClick={() => handleLikeClick(post.id)}
                   >
-                    {String.fromCodePoint(0x1f44d)}{" "}
-                    Like {post.likes}
+                    {String.fromCodePoint(0x1f44d)} Like {post.likes}
                   </button>
                 </div>
               </div>
+              
+              {/* Comment Section */}
+              <CommentSection
+                postId={post.id}
+                existingComments={comments[post.id] || []}
+                onCommentSubmit={handleCommentSubmit}
+              />
             </div>
           ))
       )}
