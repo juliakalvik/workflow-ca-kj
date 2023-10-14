@@ -11,6 +11,8 @@ function OtherPosts() {
   const [data, setData] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [editedBody, setEditedBody] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
 
   const accessKey = {
     headers: {
@@ -54,6 +56,16 @@ function OtherPosts() {
     setEditIndex(index);
     setEditedBody(body);
   };
+
+  useEffect(() => {
+    // Filter posts based on search term and update filteredData state
+    const filteredPosts = data.filter(
+      (post) =>
+        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.body.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredData(filteredPosts);
+  }, [data, searchTerm]);
 
   const handleSaveClick = async () => {
     try {
@@ -125,12 +137,21 @@ function OtherPosts() {
         Posts
       </h1>
 
+      {/* Search Input */}
+      <input
+        type="text"
+        placeholder="Search posts..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="w-full p-2 mb-4 text-base text-left text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-700 border border-gray-400 dark:border-gray-600 rounded-lg"
+      />
+
       {isLoading ? (
         <p>Loading...</p>
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        data
+        filteredData
           .filter((post) => post.title || post.body || post.media)
           .map((post, index) => (
             <div
@@ -142,67 +163,67 @@ function OtherPosts() {
                 {post.title}
               </h2>
 
-            {/* Body */}
-            {editIndex === index ? (
-              <textarea
-                className="w-full p-2 text-base text-left text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-700 border border-gray-400 dark:border-gray-600 rounded-lg"
-                value={editedBody}
-                onChange={(e) => setEditedBody(e.target.value)}
-              />
-            ) : (
-              <p className="mb-2 text-base text-left text-gray-800 dark:text-white">
-                {post.body}
-              </p>
-            )}
-
-            {/* Media */}
-            {post.media && (
-              <img
-                src={post.media}
-                alt="Post Media"
-                className="w-full h-auto mb-2"
-              />
-            )}
-
-            {/* User Icon, User ID, Like, and Comment Buttons */}
-            <div className="flex flex-wrap items-center justify-between w-full mb-2">
-              <div className="flex items-center">
-                <img
-                  src={UserIcon}
-                  alt="User Icon"
-                  className="w-10 h-10 rounded-full dark:invert"
+              {/* Body */}
+              {editIndex === index ? (
+                <textarea
+                  className="w-full p-2 text-base text-left text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-700 border border-gray-400 dark:border-gray-600 rounded-lg"
+                  value={editedBody}
+                  onChange={(e) => setEditedBody(e.target.value)}
                 />
-                <p className="ml-2 text-sm text-gray-600 dark:text-white">
-                  @{post.id}
+              ) : (
+                <p className="mb-2 text-base text-left text-gray-800 dark:text-white">
+                  {post.body}
                 </p>
-              </div>
+              )}
 
-              <div className="flex items-center">
-                {editIndex === index ? (
+              {/* Media */}
+              {post.media && (
+                <img
+                  src={post.media}
+                  alt="Post Media"
+                  className="w-full h-auto mb-2"
+                />
+              )}
+
+              {/* User Icon, User ID, Like, and Comment Buttons */}
+              <div className="flex flex-wrap items-center justify-between w-full mb-2">
+                <div className="flex items-center">
+                  <img
+                    src={UserIcon}
+                    alt="User Icon"
+                    className="w-10 h-10 rounded-full dark:invert"
+                  />
+                  <p className="ml-2 text-sm text-gray-600 dark:text-white">
+                    @{post.id}
+                  </p>
+                </div>
+
+                <div className="flex items-center">
+                  {editIndex === index ? (
+                    <button
+                      className="mr-2 text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-emerald-600 hover:border-emerald-600"
+                      onClick={handleSaveClick}
+                    >
+                      Save
+                    </button>
+                  ) : (
+                    <button
+                      className="mr-2 text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-yellow-500 hover:border-yellow-400"
+                      onClick={() => handleEditClick(index, post.body)}
+                    >
+                      Edit
+                    </button>
+                  )}
                   <button
-                    className="mr-2 text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-emerald-600 hover:border-emerald-600"
-                    onClick={handleSaveClick}
+                    onClick={() => handleDeleteClick(post.id)}
+                    className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-red-500 hover:border-red-500"
                   >
-                    Save
+                    Delete
                   </button>
-                ) : (
-                  <button
-                    className="mr-2 text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-yellow-500 hover:border-yellow-400"
-                    onClick={() => handleEditClick(index, post.body)}
-                  >
-                    Edit
-                  </button>
-                )}
-                <button
-                  onClick={() => handleDeleteClick(post.id)}
-                  className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-red-500 hover:border-red-500"
-                >
-                  Delete
-                </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))
+          ))
       )}
     </div>
   );
