@@ -45,6 +45,7 @@ export default function ProfilePage() {
 
   return (
     <div className="w-full">
+
       {/* Profile Section */}
       <div className="overflow-hidden text-gray-900 border-2 border-white bg-neutral-100 dark:text-white dark:bg-gray-800 dark:border-gray-700 rounded-3xl">
         <div
@@ -83,5 +84,26 @@ export default function ProfilePage() {
         </div>
       </div>
     </div>
+    {/* Profile Details */}
+    <div className="px-6 py-8">
+      <h1 className="text-2xl md:text-3xl lg:text-3xl font-semibold text-gray-800 dark:text-white">
+        {profile?.name}
+      </h1>
+      <p className="text-gray-600 dark:text-white ">
+        "I DANCE FOR MONEY"
+      </p>
+    </div>
+    if you're a cat looking for a dog who'll cherish your every whisker and meow
+    <div className="px-6 py-4">
+      <h2 className="text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
+        {profile?.email}
+      </h2>
+      <p className="text-sm sm:text-base text-gray-600 dark:text-white">
+        {/* Add your bio content here */}
+      </p>
+    </div>
+  </div>
+</div>
+
   );
 }
