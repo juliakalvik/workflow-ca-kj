@@ -9,7 +9,7 @@ import CogIcon from "../../../assets/icons/cog.svg";
 
 function NavBar() {
   return (
-    <nav className=" bg-neutral-100 text-gray-800 dark:text-white rounded-3xl p-5 border-2 border-white dark:bg-gray-800 dark:border-gray-700 flex flex-col text-xl h-full w-full min-w-80">
+    <nav className=" bg-neutral-100 text-gray-800 dark:text-white rounded-3xl p-5 border-2 border-white dark:bg-gray-800 dark:border-gray-700 flex flex-col text-xl h-100 w-full min-w-80">
       <ul className=" space-y-6">
         <li className="flex items-center bg-orange-200 dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 text-gray-800 p-2 md:w-full w-10 mt-auto rounded-3xl border-2 border-orange-200 hover:border-orange-100 shadow-custom leading-tight tracking-tigh">
           <Link to="/" style={{ color: "black" }} className="flex items-center dark:invert">
