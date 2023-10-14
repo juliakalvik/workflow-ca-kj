@@ -8,14 +8,12 @@ import { API_URL } from "./constants";
 
 function updateOptions(options) {
   const update = { ...options };
-
   if (localStorage.getItem("jwt")) {
     update.headers = {
       ...update.headers,
       Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     };
   }
-
   return update;
 }
 
@@ -71,7 +69,7 @@ export async function loginUser(email, password) {
   const options = {
     method: "POST",
     headers: {
-      "Content-Type": "application/json; charset=UTF-8",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
   };
