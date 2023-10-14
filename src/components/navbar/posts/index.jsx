@@ -27,10 +27,17 @@ function OtherPosts() {
         "https://api.noroff.dev/api/v1/social/posts?limit=10",
         accessKey
       );
-
+  
       if (response.ok) {
-        const data = await response.json();
-        setData(data);
+        const responseData = await response.json();
+        const updatedData = responseData.map((post) => {
+          const existingPost = data.find((p) => p.id === post.id);
+          if (existingPost) {
+            post.likes = existingPost.likes;
+          }
+          return post;
+        });
+        setData(updatedData);
       } else {
         throw new Error("Failed to fetch data");
       }
@@ -41,6 +48,7 @@ function OtherPosts() {
       setIsLoading(false);
     }
   };
+  
 
   useEffect(() => {
     fetchData();
@@ -131,6 +139,37 @@ function OtherPosts() {
     }
   };
 
+  const handleLikeClick = async (postId) => {
+    try {
+      const emojiSymbol = "👍";
+      const response = await fetch(
+        `https://api.noroff.dev/api/v1/social/posts/${postId}/react/${encodeURIComponent(
+          emojiSymbol
+        )}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
+          },
+        }
+      );
+  
+      if (response.ok) {
+        const reactionData = await response.json();
+  
+        setData((prevData) =>
+          prevData.map((post) =>
+            post.id === postId ? { ...post, likes: reactionData.count } : post
+          )
+        );
+      } else {
+        throw new Error("Failed to react to the post");
+      }
+    } catch (error) {
+      console.error("Error reacting to the post:", error);
+    }
+  };
+
   return (
     <div className="w-full p-6 bg-orange-200 border-2 border-orange-100 rounded-3xl dark:bg-gray-800 dark:border-gray-700">
       <h1 className="mb-4 text-2xl font-bold text-left text-gray-800 dark:text-white">
@@ -198,17 +237,17 @@ function OtherPosts() {
                   </p>
                 </div>
 
-                <div className="flex items-center">
+                <div className="flex items-center gap-2">
                   {editIndex === index ? (
                     <button
-                      className="mr-2 text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-emerald-600 hover:border-emerald-600"
+                      className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-emerald-600 hover:border-emerald-600"
                       onClick={handleSaveClick}
                     >
                       Save
                     </button>
                   ) : (
                     <button
-                      className="mr-2 text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-yellow-500 hover:border-yellow-400"
+                      className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-yellow-500 hover:border-yellow-400"
                       onClick={() => handleEditClick(index, post.body)}
                     >
                       Edit
@@ -219,6 +258,13 @@ function OtherPosts() {
                     className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-red-500 hover:border-red-500"
                   >
                     Delete
+                  </button>
+                  <button
+                    className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-emerald-500 hover:border-emerald-500"
+                    onClick={() => handleLikeClick(post.id)}
+                  >
+                    {String.fromCodePoint(0x1f44d)}{" "}
+                    Like {post.likes}
                   </button>
                 </div>
               </div>
