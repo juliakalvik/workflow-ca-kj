@@ -5,16 +5,15 @@ import { API_URL } from "./constants";
  * @param {Object} options - HTTP header options
  * @returns {Object} - HTTP header options with Authorization header
  */
+
 function updateOptions(options) {
   const update = { ...options };
-
   if (localStorage.getItem("jwt")) {
     update.headers = {
       ...update.headers,
       Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     };
   }
-
   return update;
 }
 
@@ -76,12 +75,12 @@ export async function loginUser(email, password) {
   };
   console.log("Options: ", options);
   try {
-    const response = await fetch(url, options);
+    const response = await fetch(url.options);
 
     if (!response.ok) throw new Error(response.statusText);
 
     const data = await response.json();
-
+    console.log("data:", data);
     localStorage.setItem("jwt", data.accessToken);
 
     return data;
