@@ -2,7 +2,7 @@ import Header from "../components/navbar/header";
 import NavBar from "../components/navbar/home-nav";
 import ProfilePage from "../components/profile-page";
 import SingelPost from "../components/create-post";
-import Sosials from "../components/Sosials-profile";
+import Sosials from "../components/sosials-profile";
 
 export default function Profile() {
   return (
