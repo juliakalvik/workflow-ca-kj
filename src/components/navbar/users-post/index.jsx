@@ -1,6 +1,3 @@
-// import MediaIcon from "../../../assets/icons/media.svg";
-// import GifIcon from "../../../assets/icons/gif.svg";
-// import EmojiIcon from "../../../assets/icons/emoji.svg";
 /** *Reusable Input and Button Components
 
  * @author PetterMartin*/

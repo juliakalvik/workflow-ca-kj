@@ -69,7 +69,6 @@ function OtherPosts() {
   };
 
   useEffect(() => {
-    // Filter posts based on search term and update filteredData state
     const filteredPosts = data.filter(
       (post) =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -177,12 +176,10 @@ function OtherPosts() {
         if (response.ok) {
           const reactionData = await response.json();
   
-          // Update liked posts state and local storage
           const updatedLikedPosts = [...likedPosts, postId];
           setLikedPosts(updatedLikedPosts);
           localStorage.setItem("likedPosts", JSON.stringify(updatedLikedPosts));
   
-          // Update the data state with new likes count
           setData((prevData) =>
             prevData.map((post) =>
               post.id === postId ? { ...post, likes: reactionData.count } : post
@@ -227,22 +224,17 @@ function OtherPosts() {
       if (response.ok) {
         const newCommentData = await response.json();
   
-        // Update local state with new comment
         setComments((prevComments) => ({
           ...prevComments,
           [postId]: [...(prevComments[postId] || []), newCommentData.body],
         }));
-  
-        // Get the current comments from local storage
+
         const storedComments = JSON.parse(localStorage.getItem("comments")) || {};
   
-        // Update the stored comments with the new comment
         const updatedComments = {
           ...storedComments,
           [postId]: [...(storedComments[postId] || []), newCommentData.body],
         };
-  
-        // Save comments in local storage
         localStorage.setItem("comments", JSON.stringify(updatedComments));
       } else {
         throw new Error("Failed to submit comment");

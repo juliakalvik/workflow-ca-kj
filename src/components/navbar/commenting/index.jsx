@@ -1,3 +1,7 @@
+/** *Reusable Input and Button Components
+
+ * @author PetterMartin*/
+
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
@@ -33,7 +37,7 @@ function CommentSection({ postId, existingComments, onCommentSubmit }) {
         />
         <button
           onClick={handleCommentSubmit}
-          className="ml-2 text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-emerald-600 hover:border-emerald-600"
+          className="ml-2 text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-sky-400 hover:border-sky-400"
         >
           Add Comment
         </button>
