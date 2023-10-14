@@ -13,6 +13,7 @@ function OtherPosts() {
   const [editedBody, setEditedBody] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  const [likedPosts, setLikedPosts] = useState([]);
 
   const accessKey = {
     headers: {
@@ -139,31 +140,57 @@ function OtherPosts() {
     }
   };
 
+  useEffect(() => {
+    const savedLikedPosts = localStorage.getItem("likedPosts");
+    if (savedLikedPosts) {
+      setLikedPosts(JSON.parse(savedLikedPosts));
+    }
+  
+    fetchData();
+  
+    const timer = setInterval(() => {
+      fetchData();
+    }, 10000);
+  
+    return () => clearInterval(timer);
+  }, []);
+  
+
   const handleLikeClick = async (postId) => {
     try {
-      const emojiSymbol = "👍";
-      const response = await fetch(
-        `https://api.noroff.dev/api/v1/social/posts/${postId}/react/${encodeURIComponent(
-          emojiSymbol
-        )}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
-          },
-        }
-      );
-  
-      if (response.ok) {
-        const reactionData = await response.json();
-  
-        setData((prevData) =>
-          prevData.map((post) =>
-            post.id === postId ? { ...post, likes: reactionData.count } : post
-          )
+      if (!likedPosts.includes(postId)) {
+        const emojiSymbol = "👍";
+        const response = await fetch(
+          `https://api.noroff.dev/api/v1/social/posts/${postId}/react/${encodeURIComponent(
+            emojiSymbol
+          )}`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
+            },
+          }
         );
+  
+        if (response.ok) {
+          const reactionData = await response.json();
+  
+          // Update liked posts state and local storage
+          const updatedLikedPosts = [...likedPosts, postId];
+          setLikedPosts(updatedLikedPosts);
+          localStorage.setItem("likedPosts", JSON.stringify(updatedLikedPosts));
+  
+          // Update the data state with new likes count
+          setData((prevData) =>
+            prevData.map((post) =>
+              post.id === postId ? { ...post, likes: reactionData.count } : post
+            )
+          );
+        } else {
+          throw new Error("Failed to react to the post");
+        }
       } else {
-        throw new Error("Failed to react to the post");
+        console.log("You have already liked this post.");
       }
     } catch (error) {
       console.error("Error reacting to the post:", error);
