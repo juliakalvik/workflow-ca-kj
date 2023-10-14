@@ -1,4 +1,3 @@
-// import UserIcon from "../../../assets/basic-user.svg";
 // import MediaIcon from "../../../assets/icons/media.svg";
 // import GifIcon from "../../../assets/icons/gif.svg";
 // import EmojiIcon from "../../../assets/icons/emoji.svg";
@@ -22,7 +21,7 @@ export default function CreatePostForm() {
     event.preventDefault();
 
     const form = event.target;
-    const { title, userId } = form.elements;
+    const { title, body, imageUrl } = form.elements;
 
     const accessKey = {
       headers: {
@@ -33,17 +32,18 @@ export default function CreatePostForm() {
 
     const newPost = {
       title: title.value,
-      body: title.value,
-      userId: userId.value,
+      body: body.value,
+      media: imageUrl.value, 
     };
+
 
     try {
       const response = await fetch(
-        "https://api.noroff.dev/api/v1/social/posts?limit=1",
+        "https://api.noroff.dev/api/v1/social/posts",
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json; charset=UTF-8",
+            "Content-Type": "application/json",
             ...accessKey.headers,
           },
           body: JSON.stringify(newPost),
@@ -69,21 +69,50 @@ export default function CreatePostForm() {
       className="w-full p-4 mb-1 text-xl text-gray-900 border-2 border-white bg-neutral-100 rounded-3xl dark:bg-gray-800 dark:border-gray-700"
       onSubmit={handleOnSubmit}
     >
-      <h3>Create a new post</h3>
+      <h3>Create a new posts</h3>
 
-      <div className="flex items-start space-x-4">
+      <section>
+        <div className="flex flex-col gap-1 mt-2">
+          <label htmlFor="title" className="block text-sm leading-6 text-black">
+            Subject
+          </label>
 
-        <div className="flex-grow w-full mt-2">
-
-          <textarea
-            placeholder="What's happening?"
+          <input
             id="title"
             name="title"
-            className="w-full h-auto p-2 overflow-hidden text-sm border border-gray-300 resize-none dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 rounded-3xl"
-          ></textarea>
+            required
+            className="w-full h-auto resize-none overflow-hidden text-sm border border-gray-300  dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 p-2 rounded-3xl"
+          />
+        </div>
+      </section>
+
+      <div>
+        <div className="flex flex-col gap-1 mt-2">
+          <label
+            htmlFor="userId"
+            className="block text-sm leading-6 text-black"
+          >
+            What´s on your mind?
+          </label>
+          <input
+            id="body"
+            name="body"
+            className="w-full h-20 resize-none overflow-hidden text-sm border border-gray-300  dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 p-2 rounded-3xl"
+          />
         </div>
       </div>
 
+      <div className="flex flex-col gap-1 mt-2 mb-4">
+        <label htmlFor="imageUrl" className="block text-sm leading-6 text-black">
+          Upload Image (Optional)
+        </label>
+        <input
+          type="url"
+          id="imageUrl"
+          name="imageUrl"
+          className="border border-gray-300 dark:text-white dark:bg-gray-700 dark:border-gray-600 p-2 rounded-3xl"
+        />
+      </div>
 
       <div>
         <button
