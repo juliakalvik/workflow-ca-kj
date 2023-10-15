@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import fetcher from "../Sosials-profile/index";
 
 const Sosials = () => {
   const [profile, setProfile] = useState(null);
@@ -23,10 +22,11 @@ const Sosials = () => {
           sortOrder: sorting.sortOrder,
         });
 
-        const response = await fetcher(
+        const response = await fetch(
           `https://api.noroff.dev/api/v1/social/profiles/?${params.toString()}`,
           {
             method: "GET",
+            headers: options.headers,
           }
         );
 
