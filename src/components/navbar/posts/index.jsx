@@ -1,7 +1,7 @@
 /** *Reusable Input and Button Components
 
  * @author PetterMartin*/
-
+import { Link } from "@tanstack/react-router";  //Cnbergh: added link for "view a post"
 import { useState, useEffect } from "react";
 import UserIcon from "../../../assets/icons/user.svg";
 import CommentSection from "../commenting";
@@ -16,9 +16,9 @@ function OtherPosts() {
   const [filteredData, setFilteredData] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
   const [comments, setComments] = useState({});
-  const [filter, setFilter] = useState('All'); // New state for filter - CNB
+  const [filter, setFilter] = useState('All'); // New state for filter - Cnbergh
 
-  //Correct user id and token inserted - CNB.
+  //Correct user id and token inserted - Cnbergh.
   const accessKey = localStorage.getItem("jwt");
 
   const fetchData = async () => {
@@ -359,8 +359,12 @@ function OtherPosts() {
                     className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-emerald-500 hover:border-emerald-500"
                     onClick={() => handleLikeClick(post.id)}
                   >
+                    {/** Button to "post page" -- @author Cnbergh*/}
                     {String.fromCodePoint(0x1f44d)} Like {post.likes}
                   </button>
+                  <Link to={`/post/${post.id}`}>
+                    <button className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-emerald-500 hover:border-emerald-500">View Post</button>
+                  </Link>
                 </div>
               </div>
 
