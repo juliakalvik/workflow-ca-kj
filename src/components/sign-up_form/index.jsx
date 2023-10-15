@@ -6,9 +6,10 @@ import logo from '../../assets/Y_logo.png';
 /* import Input from './Input'; ---- planed*/
 
 /** *Sign up form - Register page - @author Cnbergh*/
-const Input = ({ type, placeholder, value, onChange }) => (
+const Input = ({ type, placeholder, value, onChange, name }) => (
     <input
         type={type}
+        name={name}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
@@ -21,31 +22,39 @@ const Input = ({ type, placeholder, value, onChange }) => (
 
 const SignUpForm = () => {
     const navigate = useNavigate();
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+    });
     const [showModal, setShowModal] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState([]);
     const [spin] = useState(false);
 
     const signUpMutation = useMutation(async ({ username, email, password }) => {
-        const data = await registerUser({ username, email, password });
-        setShowModal(true);
-        setTimeout(async () => {
-            setShowModal(false);
-            const loginData = await loginUser(email, password);
-            localStorage.setItem("jwt", loginData.accessToken);
-            localStorage.setItem("user_email", loginData.email);
-            navigate({ to: "/" });
-        }, 2500);
+        try {
+            const data = await registerUser({ username, email, password });
+            localStorage.setItem("jwt", data.accessToken);
+            localStorage.setItem("user_email", data.email);
+            setShowModal(true);
+            setTimeout(async () => {
+                setShowModal(false);
+                const loginData = await loginUser({ email, password });
+                localStorage.setItem("jwt", loginData.accessToken);
+                localStorage.setItem("user_email", loginData.email);
+                navigate({ to: "/" });
+            }, 2500);
+        } catch (error) {
+            setErrorMessage(prev => [...prev, 'Registration failed']);
+        }
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let emailValid = /\S+@\S+\.\S+/.test(email);
+        const { username, email, password, confirmPassword } = formData;
         let errorMessages = [];
-
+        let emailValid = /\S+@\S+\.\S+/.test(email);
         if (password === confirmPassword && emailValid) {
             signUpMutation.mutate({ email, password, username });
         } else {
@@ -58,9 +67,13 @@ const SignUpForm = () => {
             if (password !== confirmPassword) {
                 errorMessages.push('Passwords do not match.');
             }
-
-            setErrorMessage(errorMessages.join(' '));
+            setErrorMessage(errorMessages);
         }
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     return (
@@ -74,11 +87,11 @@ const SignUpForm = () => {
                     <h2 className="text-xl font-bold sm:text-2xl md:text-3xl lg:text-4xl">Create an Account</h2>
                     {errorMessage && <div className="text-red-600">{errorMessage}</div>}
                     <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="/profile">
-                        <Input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required={true} />
-                        <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required={true} autoComplete="email" />
-                        <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required={true} minLength={4} autoComplete="new-password" />
-                        <Input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required={true} minLength={4} autoComplete="new-password" />
-                        <button type="submit" className="w-full px-4 py-2 my-2 leading-tight tracking-tight text-white bg-blue-500 border-2 border-blue-500 rounded-3xl hover:border-blue-400 shadow-custom" onClick={handleSubmit} disabled={!email || !password || !confirmPassword}>
+                        <Input type="text" name="username" placeholder="Username" value={formData.username} onChange={handleChange} />
+                        <Input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+                        <Input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} />
+                        <Input type="password" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} />
+                        <button type="submit" className="w-full px-4 py-2 my-2 leading-tight tracking-tight text-white bg-blue-500 border-2 border-blue-500 rounded-3xl hover:border-blue-400 shadow-custom">
                             Sign Up
                         </button>
                         <p className="text-xs font-light leading-tight tracking-tight text-gray-700 sm:text-sm dark:text-gray-400">
@@ -89,7 +102,7 @@ const SignUpForm = () => {
                 {showModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                         <div className="w-auto p-4 mt-1 text-white bg-blue-500 border-2 border-blue-400 modal-content px rounded-3xl md:mt-2 sm:max-w-md xl:p-3">
-                            <h2 className="text-2xl font-bold leading-tight tracking-tight">Hi {username}!</h2>
+                            <h2 className="text-2xl font-bold leading-tight tracking-tight">Hi {formData.username}!</h2>
                             <p className="mt-2 text-base leading-tight tracking-tight">Welcome and thank you for signing up!</p>
                         </div>
                     </div>
