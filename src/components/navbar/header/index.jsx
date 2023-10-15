@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import logo from "../../../assets/Y_logo.png";
 import user from "../../../assets/basic-user.svg";
-import { Outlet, Link } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 
 function Header() {
   const [userProfile, setUserProfile] = useState({});
@@ -33,18 +33,18 @@ function Header() {
   }, []);
 
   return (
-    <header className="bg-neutral-100 text-gray-900 p-4  rounded-3xl border-2 border-white dark:bg-gray-800 dark:border-gray-700 flex justify-between items-center mb-1">
+    <header className="flex items-center justify-between p-4 mb-1 text-gray-900 border-2 border-white bg-neutral-100 rounded-3xl dark:bg-gray-800 dark:border-gray-700">
       {/* Left side - Logo */}
       <div>
         <img src={logo} alt="Logo" className="w-20 h-20 logo dark:invert" />
       </div>
 
       {/* Middle - Search Bar (hidden on mobile) */}
-      <div className="hidden md:flex w-96 h-20 items-center mx-4">
+      <div className="items-center hidden h-20 mx-4 md:flex w-96">
         <input
           type="text"
           placeholder="Search anything.."
-          className="w-full p-2 rounded-full border-2 bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+          className="w-full p-2 border-2 rounded-full bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:text-white dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
         />
       </div>
 
@@ -54,19 +54,19 @@ function Header() {
           <p className="text-center">Loading...</p>
         ) : (
           <>
-          <Link
-            to="/profile"
-            style={{ color: "black" }}
-            className="flex items-center "
-          >
-            <p className="text-center">{userProfile.name}</p>
-            <div className="w-14 h-14 rounded-full border-2 bg-orange-200">
-              <img
-                src={userProfile.avatar || user}
-                alt="User Avatar"
-                className="w-full h-full object-cover rounded-full"
-              />
-            </div>
+            <Link
+              to="/profile"
+              style={{ color: "black" }}
+              className="flex items-center "
+            >
+              <p className="text-center">{userProfile.name}</p>
+              <div className="bg-orange-200 border-2 rounded-full w-14 h-14">
+                <img
+                  src={userProfile.avatar || user}
+                  alt="User Avatar"
+                  className="object-cover w-full h-full rounded-full"
+                />
+              </div>
             </Link>
           </>
         )}

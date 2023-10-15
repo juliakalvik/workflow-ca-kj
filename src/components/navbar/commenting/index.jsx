@@ -2,15 +2,15 @@
 
  * @author PetterMartin*/
 
-import React, { useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 
 CommentSection.propTypes = {
-    postId: PropTypes.number.isRequired,
-    existingComments: PropTypes.arrayOf(PropTypes.string).isRequired,
-    onCommentSubmit: PropTypes.func.isRequired,
-  };
-  
+  postId: PropTypes.number.isRequired,
+  existingComments: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onCommentSubmit: PropTypes.func.isRequired,
+};
+
 
 function CommentSection({ postId, existingComments, onCommentSubmit }) {
   const [newComment, setNewComment] = useState("");
@@ -23,17 +23,17 @@ function CommentSection({ postId, existingComments, onCommentSubmit }) {
   return (
     <div className="mt-4">
       <h3 className="mb-2 text-lg font-semibold text-left">Comments:</h3>
-      <ul className="list-disc pl-4 text-left">
+      <ul className="pl-4 text-left list-disc">
         {existingComments.map((comment, index) => (
           <li key={index}>{comment}</li>
         ))}
       </ul>
-      <div className="mt-2 flex items-center">
+      <div className="flex items-center mt-2">
         <textarea
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           placeholder="Add your comment..."
-          className="flex-grow p-2 text-base text-left text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-700 border border-gray-400 dark:border-gray-600 rounded-lg"
+          className="flex-grow p-2 text-base text-left text-gray-800 bg-gray-100 border border-gray-400 rounded-lg dark:text-white dark:bg-gray-700 dark:border-gray-600"
         />
         <button
           onClick={handleCommentSubmit}
@@ -44,6 +44,6 @@ function CommentSection({ postId, existingComments, onCommentSubmit }) {
       </div>
     </div>
   );
-};
+}
 
 export default CommentSection;

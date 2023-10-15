@@ -2,7 +2,7 @@
 
  * @author PetterMartin*/
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import UserIcon from "../../../assets/icons/user.svg";
 import CommentSection from "../commenting";
 
@@ -17,20 +17,18 @@ function OtherPosts() {
   const [likedPosts, setLikedPosts] = useState([]);
   const [comments, setComments] = useState({});
 
-  const accessKey = {
-    headers: {
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQyMywibmFtZSI6Ik1pcm1pciIsImVtYWlsIjoiTWlybWlyMjAyM0BzdHVkLm5vcm9mZi5ubyIsImF2YXRhciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTk4MDc5MjUzNDIyLTYzOGZhOWIyZDE2MD9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeHpaV0Z5WTJoOE1UUjhmSEJwZEdKMWJHeDhaVzU4TUh4OE1IeDhmREElM0QmYXV0bz1mb3JtYXQmZml0PWNyb3Amdz04MDAmcT02MCIsImJhbm5lciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNjk2OTIxODgxOTAzLWU4N2U1NjYyZDliND9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeGxaR2wwYjNKcFlXd3RabVZsWkh3ME1ueDhmR1Z1ZkRCOGZIeDhmQSUzRCUzRCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcCZ3PTgwMCZxPTYwIiwiaWF0IjoxNjk3MDYzMzIzfQ.NrTN_OF0maTAH0H_4mhdw4pIkDcuxz_sY3ISUcH-2m4",
-    },
-  };
+  //Correct user id and token inserted - CNB.
+  const accessKey = localStorage.getItem("jwt");
 
   const fetchData = async () => {
     try {
-      const response = await fetch(
-        "https://api.noroff.dev/api/v1/social/posts?limit=10",
-        accessKey
-      );
-  
+      const url = new URL("https://api.noroff.dev/api/v1/social/posts?limit=10");
+      const response = await fetch(url.href, {
+        headers: {
+          Authorization: `Bearer ${accessKey}`,
+        },
+      });
+
       if (response.ok) {
         const responseData = await response.json();
         const updatedData = responseData.map((post) => {
@@ -51,7 +49,7 @@ function OtherPosts() {
       setIsLoading(false);
     }
   };
-  
+
 
   useEffect(() => {
     fetchData();
@@ -85,8 +83,7 @@ function OtherPosts() {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQyMywibmFtZSI6Ik1pcm1pciIsImVtYWlsIjoiTWlybWlyMjAyM0BzdHVkLm5vcm9mZi5ubyIsImF2YXRhciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTk4MDc5MjUzNDIyLTYzOGZhOWIyZDE2MD9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeHpaV0Z5WTJoOE1UUjhmSEJwZEdKMWJHeDhaVzU4TUh4OE1IeDhmREElM0QmYXV0bz1mb3JtYXQmZml0PWNyb3Amdz04MDAmcT02MCIsImJhbm5lciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNjk2OTIxODgxOTAzLWU4N2U1NjYyZDliND9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeGxaR2wwYjNKcFlXd3RabVZsWkh3ME1ueDhmR1Z1ZkRCOGZIeDhmQSUzRCUzRCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcCZ3PTgwMCZxPTYwIiwiaWF0IjoxNjk3MDYzMzIzfQ.NrTN_OF0maTAH0H_4mhdw4pIkDcuxz_sY3ISUcH-2m4",
+            Authorization: `Bearer ${accessKey}`,
           },
           body: JSON.stringify({
             title: data[editIndex].title,
@@ -123,8 +120,7 @@ function OtherPosts() {
           {
             method: "DELETE",
             headers: {
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQyMywibmFtZSI6Ik1pcm1pciIsImVtYWlsIjoiTWlybWlyMjAyM0BzdHVkLm5vcm9mZi5ubyIsImF2YXRhciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTk4MDc5MjUzNDIyLTYzOGZhOWIyZDE2MD9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeHpaV0Z5WTJoOE1UUjhmSEJwZEdKMWJHeDhaVzU4TUh4OE1IeDhmREElM0QmYXV0bz1mb3JtYXQmZml0PWNyb3Amdz04MDAmcT02MCIsImJhbm5lciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNjk2OTIxODgxOTAzLWU4N2U1NjYyZDliND9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeGxaR2wwYjNKcFlXd3RabVZsWkh3ME1ueDhmR1Z1ZkRCOGZIeDhmQSUzRCUzRCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcCZ3PTgwMCZxPTYwIiwiaWF0IjoxNjk3MDYzMzIzfQ.NrTN_OF0maTAH0H_4mhdw4pIkDcuxz_sY3ISUcH-2m4",
+              Authorization: `Bearer ${accessKey}`
             },
           }
         );
@@ -146,16 +142,16 @@ function OtherPosts() {
     if (savedLikedPosts) {
       setLikedPosts(JSON.parse(savedLikedPosts));
     }
-  
+
     fetchData();
-  
+
     const timer = setInterval(() => {
       fetchData();
     }, 10000);
-  
+
     return () => clearInterval(timer);
   }, []);
-  
+
 
   const handleLikeClick = async (postId) => {
     try {
@@ -168,18 +164,18 @@ function OtherPosts() {
           {
             method: "PUT",
             headers: {
-              Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
+              Authorization: `Bearer ${accessKey}`,
             },
           }
         );
-  
+
         if (response.ok) {
           const reactionData = await response.json();
-  
+
           const updatedLikedPosts = [...likedPosts, postId];
           setLikedPosts(updatedLikedPosts);
           localStorage.setItem("likedPosts", JSON.stringify(updatedLikedPosts));
-  
+
           setData((prevData) =>
             prevData.map((post) =>
               post.id === postId ? { ...post, likes: reactionData.count } : post
@@ -202,7 +198,7 @@ function OtherPosts() {
       setComments(JSON.parse(storedComments));
     }
   }, []);
-  
+
 
   const handleCommentSubmit = async (postId, comment) => {
     try {
@@ -215,22 +211,21 @@ function OtherPosts() {
           }),
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI3MiwibmFtZSI6IktoYWRhciIsImVtYWlsIjoiS2hhZGFyQHN0dWQubm9yb2ZmLm5vIiwiYXZhdGFyIjpudWxsLCJiYW5uZXIiOm51bGwsImlhdCI6MTY5NjkzNDEwMH0.LBn5-HZyYjJT9RUFrid6F7NBvMSnNls-Bzx06FAQ_j0",
+            Authorization: `Bearer ${accessKey}`,
           },
         }
       );
-  
+
       if (response.ok) {
         const newCommentData = await response.json();
-  
+
         setComments((prevComments) => ({
           ...prevComments,
           [postId]: [...(prevComments[postId] || []), newCommentData.body],
         }));
 
         const storedComments = JSON.parse(localStorage.getItem("comments")) || {};
-  
+
         const updatedComments = {
           ...storedComments,
           [postId]: [...(storedComments[postId] || []), newCommentData.body],
@@ -243,10 +238,10 @@ function OtherPosts() {
       console.error("Error submitting comment:", error);
     }
   };
-  
-  
 
-  
+
+
+
 
   return (
     <div className="w-full p-6 bg-orange-200 border-2 border-orange-100 rounded-3xl dark:bg-gray-800 dark:border-gray-700">
@@ -260,7 +255,7 @@ function OtherPosts() {
         placeholder="Search posts..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full p-2 mb-4 text-base text-left text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-700 border border-gray-400 dark:border-gray-600 rounded-lg"
+        className="w-full p-2 mb-4 text-base text-left text-gray-800 bg-gray-100 border border-gray-400 rounded-lg dark:text-white dark:bg-gray-700 dark:border-gray-600"
       />
 
       {isLoading ? (
@@ -283,7 +278,7 @@ function OtherPosts() {
               {/* Body */}
               {editIndex === index ? (
                 <textarea
-                  className="w-full p-2 text-base text-left text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-700 border border-gray-400 dark:border-gray-600 rounded-lg"
+                  className="w-full p-2 text-base text-left text-gray-800 bg-gray-100 border border-gray-400 rounded-lg dark:text-white dark:bg-gray-700 dark:border-gray-600"
                   value={editedBody}
                   onChange={(e) => setEditedBody(e.target.value)}
                 />
@@ -345,7 +340,7 @@ function OtherPosts() {
                   </button>
                 </div>
               </div>
-              
+
               {/* Comment Section */}
               <CommentSection
                 postId={post.id}

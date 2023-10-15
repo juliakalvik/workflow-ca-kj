@@ -14,7 +14,7 @@ export default function LoginPage() {
   const [data, setData] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
-  const [spin, setSpin] = useState(false);
+  const [spin] = useState(false);
 
   const navigateToHome = () => {
     setTimeout(() => {
@@ -30,10 +30,9 @@ export default function LoginPage() {
       email: email.value,
       password: password.value,
     };
-    console.log("Payload:", payload);
 
     try {
-      const res = await loginUser(payload);  // Use loginUser
+      const res = await loginUser(payload); // Use loginUser
       setData(res);
       setIsSuccess(true);
       navigateToHome();

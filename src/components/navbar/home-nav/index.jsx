@@ -1,5 +1,4 @@
-import React from "react";
-import { Outlet, Link } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import HomeIcon from "../../../assets/icons/home.svg";
 import UserIcon from "../../../assets/icons/user.svg";
 import MailIcon from "../../../assets/icons/mail.svg";
@@ -9,9 +8,9 @@ import CogIcon from "../../../assets/icons/cog.svg";
 
 function NavBar() {
   return (
-    <nav className=" bg-neutral-100 text-gray-800 dark:text-white rounded-3xl p-5 border-2 border-white dark:bg-gray-800 dark:border-gray-700 flex flex-col text-xl h-100 w-full min-w-80">
-      <ul className=" space-y-6">
-        <li className="flex items-center bg-orange-200 dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 text-gray-800 p-2 md:w-full w-10 mt-auto rounded-3xl border-2 border-orange-200 hover:border-orange-100 shadow-custom leading-tight tracking-tigh">
+    <nav className="flex flex-col w-full p-5 text-xl text-gray-800 border-2 border-white bg-neutral-100 dark:text-white rounded-3xl dark:bg-gray-800 dark:border-gray-700 h-100 min-w-80">
+      <ul className="space-y-6 ">
+        <li className="flex items-center w-10 p-2 mt-auto leading-tight text-gray-800 bg-orange-200 border-2 border-orange-200 dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 md:w-full rounded-3xl hover:border-orange-100 shadow-custom tracking-tigh">
           <Link to="/" style={{ color: "black" }} className="flex items-center dark:invert">
             <img src={HomeIcon} alt="Home Icon" className="w-6 h-6 mr-2" />
             <span className="hidden md:inline-block ">Home</span>
@@ -81,13 +80,13 @@ function NavBar() {
       <div className="pb-16"></div>
       <div className="pb-16"></div>
 
-      <button className="hidden md:inline-block bg-orange-200 dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400  text-gray-900 p-2 w-full mt-auto rounded-3xl border-2 border-orange-200 hover:border-orange-100 shadow-custom leading-tight tracking-tight">
+      <button className="hidden w-full p-2 mt-auto leading-tight tracking-tight text-gray-900 bg-orange-200 border-2 border-orange-200 md:inline-block dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 rounded-3xl hover:border-orange-100 shadow-custom">
         <Link to="/Login">
           Login
         </Link>
       </button>
       <Link to="/Login" style={{ color: "gray-800" }}>
-        <span className="md:hidden text-base flex justify-center text-gray-800 dark:text-white">Login</span>
+        <span className="flex justify-center text-base text-gray-800 md:hidden dark:text-white">Login</span>
       </Link>
     </nav>
   );

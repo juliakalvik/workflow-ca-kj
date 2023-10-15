@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import { registerUser } from '../../lib/api';
@@ -27,7 +27,7 @@ const SignUpForm = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [spin, setSpin] = useState(false);
+    const [spin] = useState(false);
 
     const signUpMutation = useMutation(async ({ email, password, username }) => {
         const data = await registerUser({ email, password, username });
@@ -86,7 +86,7 @@ const SignUpForm = () => {
                 {showModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                         <div className="w-auto p-4 mt-1 text-white bg-blue-500 border-2 border-blue-400 modal-content px rounded-3xl md:mt-2 sm:max-w-md xl:p-3">
-                            <h2 className="text-2xl font-bold leading-tight tracking-tight">Thank You!</h2>
+                            <h2 className="text-2xl font-bold leading-tight tracking-tight">Hi {username?.value}!</h2>
                             <p className="mt-2 text-base leading-tight tracking-tight">Welcome and thank you for signing up!</p>
                         </div>
                     </div>
