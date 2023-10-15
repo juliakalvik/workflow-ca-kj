@@ -54,6 +54,8 @@ export async function registerUser({ email, password, username }) {
     if (!response.ok) throw new Error(response.statusText);
 
     const data = await response.json();
+    localStorage.setItem("jwt", data.accessToken);
+    localStorage.setItem("userId", data.name);
 
     return data;
   } catch (error) {
@@ -79,6 +81,7 @@ export async function loginUser(email, password) {
 
     const data = await response.json();
     localStorage.setItem("jwt", data.accessToken);
+    localStorage.setItem("userId", data.userId);
 
     return data;
   } catch (error) {

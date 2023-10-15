@@ -11,20 +11,27 @@ const SinglePost = () => {
     _followers: true,
   };
 
+
+  //Correct user id and token inserted from local storage- CNB.  ---- FYI
+  const userId = localStorage.getItem("userId");
+  const accessKey = localStorage.getItem("jwt");
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        // Construct the URL with query parameters using the URLSearchParams object
-        const url = new URL(
-          "https://api.noroff.dev/api/v1/social/profiles/Mirmir"
-        );
-        Object.entries(queryParams).forEach(([key, value]) => {
-          url.searchParams.append(key, value);
-        });
+        // Convert queryParams to URLSearchParams
+        const params = new URLSearchParams(queryParams);
 
-        const response = await fetch(url, {
+        // Construct the URL
+        const url = new URL(
+          `https://api.noroff.dev/api/v1/social/profiles/${userId}/`
+        );
+        url.search = params.toString();
+        console.log(url.href)
+
+        const response = await fetch(url.href, {
           headers: {
-            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQyMywibmFtZSI6Ik1pcm1pciIsImVtYWlsIjoiTWlybWlyMjAyM0BzdHVkLm5vcm9mZi5ubyIsImF2YXRhciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTk4MDc5MjUzNDIyLTYzOGZhOWIyZDE2MD9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeHpaV0Z5WTJoOE1UUjhmSEJwZEdKMWJHeDhaVzU4TUh4OE1IeDhmREElM0QmYXV0bz1mb3JtYXQmZml0PWNyb3Amdz04MDAmcT02MCIsImJhbm5lciI6Imh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNjk2OTIxODgxOTAzLWU4N2U1NjYyZDliND9peGxpYj1yYi00LjAuMyZpeGlkPU0zd3hNakEzZkRCOE1IeGxaR2wwYjNKcFlXd3RabVZsWkh3ME1ueDhmR1Z1ZkRCOGZIeDhmQSUzRCUzRCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcCZ3PTgwMCZxPTYwIiwiaWF0IjoxNjk3MDYzMzIzfQ.NrTN_OF0maTAH0H_4mhdw4pIkDcuxz_sY3ISUcH-2m4",
+            Authorization: `Bearer ${accessKey}`,
           },
         });
 
