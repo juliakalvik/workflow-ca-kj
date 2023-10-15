@@ -362,7 +362,7 @@ function OtherPosts() {
                     {String.fromCodePoint(0x1f44d)} Like {post.likes}
                   </button>
                   {/** Button to "post page" -- @author Cnbergh*/}
-                  <Link to={`/post/${post.id}`}>
+                  <Link to={`/posts/${post.id}`}>
                     <button className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-emerald-500 hover:border-emerald-500">View Post</button>
                   </Link>
                 </div>

@@ -12,5 +12,5 @@ export const NAVIGATION = [
   { label: "Profiles", href: "/profiles" },
   { label: "Posts", href: "/posts" },
   { label: "Login", href: "/login" },
-  { label: "Single Post", href: "/post/:id" }, //added link to post -- Cnbergh
+  { label: "Post", href: "/posts/$postId" }, //added to post -- Cnbergh
 ];

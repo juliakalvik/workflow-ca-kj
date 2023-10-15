@@ -1,18 +1,33 @@
 import { API_URL } from '../lib/constants';
 import { useEffect, useState } from 'react';
-import { useParams, Link } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import UserIcon from "../assets/icons/user.svg";
 
-const SinglePostPage = () => {
-  const { id } = useParams();
+const PostPage = () => {
+  const id = window.location.pathname;
   const [post, setPost] = useState(null);
+  const accessToken = localStorage.getItem("jwt");
 
   useEffect(() => {
+
     const fetchData = async () => {
-      const response = await fetch(`${API_URL}/social/posts/${id}`);
-      const data = await response.json();
-      setPost(data);
+      const url = `${API_URL}${id}`;
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setPost(data);
+      } else {
+        console.log("Error:", response.status, response.statusText);
+      }
     };
+
     fetchData();
   }, [id]);
 
@@ -54,4 +69,4 @@ const SinglePostPage = () => {
   );
 };
 
-export default SinglePostPage;
+export default PostPage;
