@@ -1,42 +1,34 @@
-import SingelPost from "../components/create-post/index";
+import { API_URL } from '../lib/constants';
+import { useEffect, useState } from 'react';
+import { useParams, Link } from '@tanstack/react-router';
 
-// const initialPostState = {
-//   title: "No post found",
-//   body: "Nothing to see here",
-//   userId: null,
-//   id: null,
-// };
+const SinglePostPage = () => {
+  const { id } = useParams();
+  const [post, setPost] = useState(null);
 
-/**
- * Displays a single post
- * @see https://docs.noroff.dev/social-endpoints/posts
- */
-export default function PostPage() {
-  // const [post, setPost] = useState(initialPostState);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       // TIP: Get the ID from the search params in the URL
-  //       // TIP: Fetch the post from the API using the ID
-  //       // TIP: Set the post in state
-  //     } catch (error) {
-  //       // TIP: Handle errors from the API
-  //     } finally {
-  //       // TIP: Set loading to false
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`${API_URL}/social/posts/${id}`);
+      const data = await response.json();
+      setPost(data);
+    };
+    fetchData();
+  }, [id]);
 
   return (
     <>
-      <h1>A single post</h1>
-      <section>
-        {/* <h2>{post?.title}</h2> */}
-        <SingelPost />
-      </section>
+      {post ? (
+        <div className="single-post">
+          <h2>{post.title}</h2>
+          <p>{post.content}</p>
+          {/* Add other elements here similar to "otherPosts" */}
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+      <Link to="/">Go Back</Link>
     </>
   );
-}
+};
+
+export default SinglePostPage;

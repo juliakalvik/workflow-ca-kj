@@ -64,7 +64,7 @@ export async function registerUser({ email, password, username }) {
 }
 
 /** *Login user - login page - @author Cnbergh*/
-export async function loginUser(email, password) {
+export async function loginUser({ email, password }) {
   const url = new URL(`${API_URL}/auth/login`);
 
   const options = {
@@ -81,7 +81,7 @@ export async function loginUser(email, password) {
 
     const data = await response.json();
     localStorage.setItem("jwt", data.accessToken);
-    localStorage.setItem("userId", data.userId);
+    localStorage.setItem("user_email", data.email);
     return data;
   } catch (error) {
     throw new Error(error);

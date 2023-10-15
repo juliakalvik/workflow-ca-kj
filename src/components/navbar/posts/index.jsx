@@ -1,7 +1,7 @@
 /** *Reusable Input and Button Components
 
  * @author PetterMartin*/
-
+import { Link } from "@tanstack/react-router";  //Cnbergh: added link for "view a post"
 import { useState, useEffect } from "react";
 import UserIcon from "../../../assets/icons/user.svg";
 import CommentSection from "../commenting";
@@ -16,8 +16,9 @@ function OtherPosts() {
   const [filteredData, setFilteredData] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
   const [comments, setComments] = useState({});
+  const [filter, setFilter] = useState('All'); // New state for filter - Cnbergh
 
-  //Correct user id and token inserted - CNB.
+  //Correct user id and token inserted - Cnbergh.
   const accessKey = localStorage.getItem("jwt");
 
   const fetchData = async () => {
@@ -67,13 +68,22 @@ function OtherPosts() {
   };
 
   useEffect(() => {
-    const filteredPosts = data.filter(
+    let filteredPosts = data;
+
+    if (filter === 'Text') {
+      filteredPosts = data.filter(post => post.body);
+    } else if (filter === 'Media') {
+      filteredPosts = data.filter(post => post.media);
+    }
+
+    filteredPosts = filteredPosts.filter(
       (post) =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         post.body.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
     setFilteredData(filteredPosts);
-  }, [data, searchTerm]);
+  }, [data, searchTerm, filter]);
 
   const handleSaveClick = async () => {
     try {
@@ -249,14 +259,27 @@ function OtherPosts() {
         Posts
       </h1>
 
-      {/* Search Input */}
-      <input
-        type="text"
-        placeholder="Search posts..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full p-2 mb-4 text-base text-left text-gray-800 bg-gray-100 border border-gray-400 rounded-lg dark:text-white dark:bg-gray-700 dark:border-gray-600"
-      />
+      <div className="flex justify-between mb-4"> {/** Flexbox container - changed search to include filter -- @author Cnbergh*/}
+        {/* Search Input */}
+        <input
+          type="text"
+          placeholder="Search posts..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full p-2 text-base text-left text-gray-800 bg-gray-100 border border-gray-400 rounded-lg dark:text-white dark:bg-gray-700 dark:border-gray-600"
+        />
+
+        {/* Filter Dropdown */}
+        <select
+          onChange={(e) => setFilter(e.target.value)}
+          value={filter}
+          className="w-1/4 p-2 text-base text-left text-gray-800 bg-gray-100 border border-gray-400 rounded-lg dark:text-white dark:bg-gray-700 dark:border-gray-600"
+        >
+          <option value="All">All</option>
+          <option value="Text">Text</option>
+          <option value="Media">Media</option>
+        </select>
+      </div>
 
       {isLoading ? (
         <p>Loading...</p>
@@ -336,8 +359,12 @@ function OtherPosts() {
                     className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-emerald-500 hover:border-emerald-500"
                     onClick={() => handleLikeClick(post.id)}
                   >
+                    {/** Button to "post page" -- @author Cnbergh*/}
                     {String.fromCodePoint(0x1f44d)} Like {post.likes}
                   </button>
+                  <Link to={`/post/${post.id}`}>
+                    <button className="text-sm text-gray-600 border border-gray-300 dark:text-white dark:border-darkGray dark:bg-gray-700 hover:text-emerald-500 hover:border-emerald-500">View Post</button>
+                  </Link>
                 </div>
               </div>
 
