@@ -14,7 +14,7 @@ export default function LoginPage() {
   const [data, setData] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
-  const [spin, setSpin] = useState(false);
+  const [spin] = useState(false);
 
   const navigateToHome = () => {
     setTimeout(() => {

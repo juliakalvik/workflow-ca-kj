@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { API_URL } from "../lib/constants";
 import Header from "../components/navbar/header";
 import NavBar from "../components/navbar/home-nav";
 import PostSubmission from "../components/navbar/users-post";
@@ -10,7 +8,7 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="container mt-2 mx-2 w-full">
+      <div className="container w-full mx-2 mt-2">
         {/* Header*/}
         <Header />
 
@@ -22,7 +20,7 @@ export default function HomePage() {
           </div>
 
           {/* Middle */}
-          <div className="w-10/12 sm:w-10/12 md:w-7/12 mx-1">
+          <div className="w-10/12 mx-1 sm:w-10/12 md:w-7/12">
             <PostSubmission />
             <PostPage />
           </div>

@@ -2,7 +2,7 @@
 
  * @author PetterMartin*/
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import UserIcon from "../../../assets/icons/user.svg";
 import CommentSection from "../commenting";
 
@@ -30,7 +30,7 @@ function OtherPosts() {
         "https://api.noroff.dev/api/v1/social/posts?limit=10",
         accessKey
       );
-  
+
       if (response.ok) {
         const responseData = await response.json();
         const updatedData = responseData.map((post) => {
@@ -51,7 +51,7 @@ function OtherPosts() {
       setIsLoading(false);
     }
   };
-  
+
 
   useEffect(() => {
     fetchData();
@@ -146,16 +146,16 @@ function OtherPosts() {
     if (savedLikedPosts) {
       setLikedPosts(JSON.parse(savedLikedPosts));
     }
-  
+
     fetchData();
-  
+
     const timer = setInterval(() => {
       fetchData();
     }, 10000);
-  
+
     return () => clearInterval(timer);
   }, []);
-  
+
 
   const handleLikeClick = async (postId) => {
     try {
@@ -172,14 +172,14 @@ function OtherPosts() {
             },
           }
         );
-  
+
         if (response.ok) {
           const reactionData = await response.json();
-  
+
           const updatedLikedPosts = [...likedPosts, postId];
           setLikedPosts(updatedLikedPosts);
           localStorage.setItem("likedPosts", JSON.stringify(updatedLikedPosts));
-  
+
           setData((prevData) =>
             prevData.map((post) =>
               post.id === postId ? { ...post, likes: reactionData.count } : post
@@ -202,7 +202,7 @@ function OtherPosts() {
       setComments(JSON.parse(storedComments));
     }
   }, []);
-  
+
 
   const handleCommentSubmit = async (postId, comment) => {
     try {
@@ -220,17 +220,17 @@ function OtherPosts() {
           },
         }
       );
-  
+
       if (response.ok) {
         const newCommentData = await response.json();
-  
+
         setComments((prevComments) => ({
           ...prevComments,
           [postId]: [...(prevComments[postId] || []), newCommentData.body],
         }));
 
         const storedComments = JSON.parse(localStorage.getItem("comments")) || {};
-  
+
         const updatedComments = {
           ...storedComments,
           [postId]: [...(storedComments[postId] || []), newCommentData.body],
@@ -243,10 +243,10 @@ function OtherPosts() {
       console.error("Error submitting comment:", error);
     }
   };
-  
-  
 
-  
+
+
+
 
   return (
     <div className="w-full p-6 bg-orange-200 border-2 border-orange-100 rounded-3xl dark:bg-gray-800 dark:border-gray-700">
@@ -260,7 +260,7 @@ function OtherPosts() {
         placeholder="Search posts..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full p-2 mb-4 text-base text-left text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-700 border border-gray-400 dark:border-gray-600 rounded-lg"
+        className="w-full p-2 mb-4 text-base text-left text-gray-800 bg-gray-100 border border-gray-400 rounded-lg dark:text-white dark:bg-gray-700 dark:border-gray-600"
       />
 
       {isLoading ? (
@@ -283,7 +283,7 @@ function OtherPosts() {
               {/* Body */}
               {editIndex === index ? (
                 <textarea
-                  className="w-full p-2 text-base text-left text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-700 border border-gray-400 dark:border-gray-600 rounded-lg"
+                  className="w-full p-2 text-base text-left text-gray-800 bg-gray-100 border border-gray-400 rounded-lg dark:text-white dark:bg-gray-700 dark:border-gray-600"
                   value={editedBody}
                   onChange={(e) => setEditedBody(e.target.value)}
                 />
@@ -345,7 +345,7 @@ function OtherPosts() {
                   </button>
                 </div>
               </div>
-              
+
               {/* Comment Section */}
               <CommentSection
                 postId={post.id}

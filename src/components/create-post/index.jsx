@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const SinglePost = () => {
   const [profile, setProfile] = useState({});
@@ -44,31 +44,31 @@ const SinglePost = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Recent Posts</h1>
+    <div className="container p-4 mx-auto">
+      <h1 className="mb-4 text-2xl font-bold">Recent Posts</h1>
 
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="bg-white p-4 rounded-lg shadow">
-          <h2 className="text-xl font-semibold text-black mt-4">Posts</h2>
+        <div className="p-4 bg-white rounded-lg shadow">
+          <h2 className="mt-4 text-xl font-semibold text-black">Posts</h2>
           {profile?.posts.map((post) => (
-            <div key={post?.id} className="bg-white p-4 rounded-lg shadow flex">
+            <div key={post?.id} className="flex p-4 bg-white rounded-lg shadow">
               <div className="mr-4">
                 <img
                   src={profile?.avatar}
                   alt={profile?.name}
-                  className="w-12 h-12 object-cover rounded-full"
+                  className="object-cover w-12 h-12 rounded-full"
                 />
               </div>
               <div>
-                <h2 className="text-lg text-black font-semibold">{post?.title}</h2>
+                <h2 className="text-lg font-semibold text-black">{post?.title}</h2>
                 <p className="text-gray-600 ">{post?.body}</p>
                 <div className="mt-2">
                   {post?.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="bg-gray-300 text-gray-700 rounded-full px-2 py-1 text-xs mr-2"
+                      className="px-2 py-1 mr-2 text-xs text-gray-700 bg-gray-300 rounded-full"
                     >
                       {tag}
                     </span>
@@ -79,7 +79,7 @@ const SinglePost = () => {
                 <img
                   src={post?.media}
                   alt={post?.title}
-                  className="w-full h-48 object-cover text-balck rounded-lg mt-2"
+                  className="object-cover w-full h-48 mt-2 rounded-lg text-balck"
                 />
               </div>
             </div>

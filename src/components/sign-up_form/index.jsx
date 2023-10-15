@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import { registerUser } from '../../lib/api';
@@ -27,7 +27,7 @@ const SignUpForm = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [spin, setSpin] = useState(false);
+    const [spin] = useState(false);
 
     const signUpMutation = useMutation(async ({ email, password, username }) => {
         const data = await registerUser({ email, password, username });
