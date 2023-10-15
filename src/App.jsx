@@ -13,7 +13,7 @@ function App() {
       </main>
 
       <footer>
-        <small>Created with ❤️ by You</small>
+        <small>Created with ❤️ by Team Mimir</small>
       </footer>
     </>
   );
