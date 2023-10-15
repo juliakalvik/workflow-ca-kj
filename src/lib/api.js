@@ -72,7 +72,7 @@ export async function loginUser(email, password) {
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
     },
-    body: JSON.stringify(email, password),
+    body: JSON.stringify({ email, password }),
   };
   try {
     const response = await fetch(url, options);
@@ -82,7 +82,6 @@ export async function loginUser(email, password) {
     const data = await response.json();
     localStorage.setItem("jwt", data.accessToken);
     localStorage.setItem("userId", data.userId);
-
     return data;
   } catch (error) {
     throw new Error(error);

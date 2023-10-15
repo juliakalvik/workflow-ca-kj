@@ -27,7 +27,6 @@ export default function ProfilePage() {
         if (response.ok) {
           const data = await response.json();
           setProfile(data);
-          console.log(data);
         } else {
           console.error("Failed to fetch profile");
         }
@@ -40,8 +39,6 @@ export default function ProfilePage() {
 
     fetchPosts();
   }, []);
-
-  console.log(profile);
 
   return (
     <div className="w-full">
