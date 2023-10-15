@@ -55,7 +55,7 @@ export async function registerUser({ email, password, username }) {
 
     const data = await response.json();
     localStorage.setItem("jwt", data.accessToken);
-    localStorage.setItem("userId", data.name);
+    localStorage.setItem("user_email", data.email);
 
     return data;
   } catch (error) {
