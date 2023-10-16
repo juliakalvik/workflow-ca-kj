@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate, Link } from '@tanstack/react-router';
 import { registerUser, loginUser } from '../../lib/api';
 import logo from '../../assets/Y_logo.png';
 /* import Input from './Input'; ---- planed*/
@@ -95,7 +95,7 @@ const SignUpForm = () => {
                             Sign Up
                         </button>
                         <p className="text-xs font-light leading-tight tracking-tight text-gray-700 sm:text-sm dark:text-gray-400">
-                            Already have an account? <a href="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign In</a>
+                            Already have an account? <Link to={`/login`} className="font-medium text-primary-600 hover:underline hover:text-indigo-500 dark:text-primary-500">Sign In</Link>
                         </p>
                     </form>
                 </div>
