@@ -1,5 +1,5 @@
 import { loginUser } from '../../src/lib/api.js';
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import logo from "../assets/Y_logo.png";
 
@@ -121,12 +121,10 @@ export default function LoginPage() {
                       {isLoading ? "signing in" : "Login"}
                     </button>
                     <p className="text-xs font-light text-gray-700 sm:text-sm dark:text-gray-400">Not a member?{" "}
-                      <a
-                        href="/register"
-                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                      <Link to={`/register`} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                       >
                         Sign up now
-                      </a>
+                      </Link>
                     </p>
                   </div>
                 </form>
