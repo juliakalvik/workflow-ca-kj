@@ -4,7 +4,7 @@ describe("Logging", () => {
 
     cy.scrollTo(0, 500);
 
-    cy.get("button.hidden").click();
+    cy.get("button.login").click();
 
     cy.get("#email").click();
     cy.get("#email").clear().type("KJ@stud.noroff.no");
