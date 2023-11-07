@@ -1,6 +1,6 @@
 describe("Logging", () => {
   it("the user can log in", () => {
-    cy.visit("https://incredible-cassata-878ab6.netlify.app");
+    cy.visit("https://workflowkj.netlify.app/");
 
     cy.scrollTo(0, 500);
 
