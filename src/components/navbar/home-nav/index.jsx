@@ -78,21 +78,13 @@ function NavBar() {
             Settings
           </a>
         </li>
-        <button className="hidden w-full p-2 mt-auto leading-tight tracking-tight text-gray-900 bg-orange-200 border-2 border-orange-200 md:inline-block dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 rounded-3xl hover:border-orange-100 shadow-custom">
-          <Link to="/Login">Log out</Link>
-        </button>
-        <Link to="/Login" style={{ color: "gray-800" }}>
-          <span className="flex justify-center text-base text-gray-800 md:hidden dark:text-white">
-            Log out
-          </span>
-        </Link>
       </ul>
 
       <div className="pb-16"></div>
       <div className="pb-16"></div>
       <div className="pb-16"></div>
 
-      <button className="hidden w-full p-2 mt-auto leading-tight tracking-tight text-gray-900 bg-orange-200 border-2 border-orange-200 md:inline-block dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 rounded-3xl hover:border-orange-100 shadow-custom">
+      <button className="login hidden w-full p-2 mt-auto leading-tight tracking-tight text-gray-900 bg-orange-200 border-2 border-orange-200 md:inline-block dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 rounded-3xl hover:border-orange-100 shadow-custom">
         <Link to="/Login">Login</Link>
       </button>
       <Link to="/Login" style={{ color: "gray-800" }}>
