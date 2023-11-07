@@ -38,6 +38,8 @@ function Header() {
       <div>
         <img src={logo} alt="Logo" className="w-20 h-20 logo dark:invert" />
       </div>
+      
+
 
       {/* Middle - Search Bar (hidden on mobile) */}
       <div className="items-center hidden h-20 mx-4 md:flex w-96">
@@ -48,8 +50,14 @@ function Header() {
         />
       </div>
 
+      <div>
+        
+      </div>
       {/* Right side - User Profile */}
       <div className="flex items-center space-x-2">
+      <button className="hidden w-full p-2 mt-auto leading-tight tracking-tight text-gray-900 bg-orange-200 border-2 border-orange-200 md:inline-block dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 rounded-3xl hover:border-orange-100 shadow-custom">
+          <Link to="/Login">Log out</Link>
+        </button>
         {loading ? (
           <p className="text-center">Loading...</p>
         ) : (
