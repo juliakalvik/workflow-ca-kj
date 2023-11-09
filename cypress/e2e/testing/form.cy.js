@@ -1,5 +1,5 @@
-describe("Logging", () => {
-  it("the user can log in", () => {
+describe("Loggin test", () => {
+  it("log in with wrong user test, landing on error page", () => {
     cy.visit("https://workflowkj.netlify.app/");
 
     cy.scrollTo(0, 500);
