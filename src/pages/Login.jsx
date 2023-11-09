@@ -22,11 +22,6 @@ export default function LoginPage() {
     }, 2000);
   };
 
-  useEffect(() => {
-    // This isnt optimal, but it clears the localstorage so the user gets logged out.
-    localStorage.clear();
-  });
-
   const handleOnSubmit = async (event) => {
     event.preventDefault();
 
