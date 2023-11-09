@@ -3,44 +3,28 @@
 # React + Vite
 
 [REPORT]
-# Social Media Platform Front-End Client
+# WorkFlow
 
 ## Overview
-This project involves the development of a React.js front-end client for an existing social media platform. The primary objectives were to create an attractive and responsive user interface, implement secure user authentication, and seamlessly integrate with the provided API.
+Adding in new features to improve the project and testing features.
 
 ## Team Members
-- Petter
 - Khadar
-- Christian
+- Julia
+
 
 ## Approach
-The project utilized React.js, emphasizing a modular and component-based architecture. JSON Web Tokens (JWT) were employed for secure user authentication, with LocalStorage ensuring persistent token storage for an enhanced user experience.
+following the guidslines for the CA and impementing the required elements.
 
-## Key Features
-- **User Authentication:**
-  - Registration and authentication restricted to specific email domains (@noroff.no or @stud.noroff.no).
-- **Content Feed:**
-  - Dynamic content feed with options for post filtering and search functionality.
-- **Post Management:**
-  - Create, edit, delete, and view posts in detail.
-
-## Challenges & Achievements
-- Successful API integration, including authentication and various HTTP methods.
-- Collaborative Development: Effective version control and collaboration ensured consistency and quality.
-- User Experience Focus: Prioritization of user experience resulted in an intuitive and engaging interface.
-
-## Future Plans
-- Implement additional profile customization features.
-- Explore real-time updates for posts and comments.
+## Features
+ - forking a prevewis poject and made a workflow branch.
+ - configurating eslint,prettier and hooks. 
+ - unit test vith vitest.
+ - adding mock token when loged in and bein removed by pressing the logout button
+ - e2e test with cypress: login and landing on the profile page, loggin in with wrong profile and ending up at the error message and loggin out tests.
+ - 
 
 ## Conclusion
-The project was successfully completed, enhancing our technical skills and emphasizing collaboration and user-centered design. This experience has equipped us for future web development challenges.
+ good cominication inside the group, installing the pagaes and utilites. proceded to test the functions and fixing bugs along the way.
+ all in all everything whent good and the project went good
 
----
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh

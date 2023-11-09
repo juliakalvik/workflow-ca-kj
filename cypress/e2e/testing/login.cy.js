@@ -1,5 +1,5 @@
-describe("Logging", () => {
-  it("the user can log in", () => {
+describe("Logging and accsess the profile", () => {
+  it("accsess the profile", () => {
     cy.visit("https://workflowkj.netlify.app/");
 
     cy.scrollTo(0, 500);
