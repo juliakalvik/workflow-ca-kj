@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import logo from "../../../assets/Y_logo.png";
 import user from "../../../assets/basic-user.svg";
 import { Link } from "@tanstack/react-router";
+import { logoutUser } from "/src/lib/api.js";
 
 function Header() {
   const [userProfile, setUserProfile] = useState({});
@@ -55,7 +56,10 @@ function Header() {
       <div></div>
       {/* Right side - User Profile */}
       <div className="flex items-center space-x-2">
-        <button className="logout hidden w-full p-2 mt-auto leading-tight tracking-tight text-gray-900 bg-orange-200 border-2 border-orange-200 md:inline-block dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 rounded-3xl hover:border-orange-100 shadow-custom">
+        <button
+          onClick={logoutUser}
+          className="logout hidden w-full p-2 mt-auto leading-tight tracking-tight text-gray-900 bg-orange-200 border-2 border-orange-200 md:inline-block dark:bg-blue-500 dark:text-white dark:border-blue-500 dark:hover:border-blue-400 rounded-3xl hover:border-orange-100 shadow-custom"
+        >
           <Link to="/Login">Log out</Link>
         </button>
         {loading ? (
