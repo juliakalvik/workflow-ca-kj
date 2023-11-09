@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import logo from "../../../assets/Y_logo.png";
 import user from "../../../assets/basic-user.svg";
 import { Link } from "@tanstack/react-router";
-import { logoutUser } from "../src/lib/api";
+import { logoutUser } from "./src/lib/api";
 
 function Header() {
   const [userProfile, setUserProfile] = useState({});
