@@ -1,7 +1,7 @@
 {
   "name": "fed2-js2-ca-react-template-mo",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.4.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
