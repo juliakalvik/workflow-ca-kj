@@ -30,4 +30,4 @@ following the guidslines for the CA and impementing the required elements.
 ## Conclusion
 
 good cominication inside the group, installing the pagaes and utilites. proceded to test the functions and fixing bugs along the way.
-all in all everything whent good and the project went good
+all in all everything whent good.
