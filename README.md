@@ -7,7 +7,7 @@
 
 ## Overview
 
-Adding in new features to improve the project and testing features.
+This report focuses on adding new features to improve the project and testing those features.
 
 ## Team Members
 
@@ -16,18 +16,16 @@ Adding in new features to improve the project and testing features.
 
 ## Approach
 
-following the guidslines for the CA and impementing the required elements.
+We followed the guidelines for the CA and implemented the required elements.
 
 ## Features
 
-- forking a prevewis poject and made a workflow branch.
-- configurating eslint,prettier and hooks.
-- unit test vith vitest.
-- adding mock token when loged in and bein removed by pressing the logout button
-- e2e test with cypress: login and landing on the profile page, loggin in with wrong profile and ending up at the error message and loggin out tests.
--
+- Forked a previous project and created a workflow branch.
+- Configured ESLint, Prettier, and hooks.
+- Used Vitest for unit testing.
+- Added a mock token for when a user is logged in, which is removed when the logout button is pressed.
+- Conducted E2E tests with Cypress: tested logging in and landing on the profile page, tested logging in with the wrong email and receiving an error message, and tested logging out.
 
 ## Conclusion
 
-good cominication inside the group, installing the pagaes and utilites. proceded to test the functions and fixing bugs along the way.
-all in all everything whent good.
+There was good communication within the group. We resolved all issues while working physically together at school, so the Issues tab in GitHub was not used. We installed the necessary packages and utilities and proceeded to test the functions, fixing bugs along the way. Overall, everything went well.
